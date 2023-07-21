@@ -1,0 +1,36 @@
+{
+  "videos": [
+    {
+      "id": 1,
+      "video_title": "How To Train A Pip-Squeek",
+      "creator": "Yohan Libert",
+      "description": "This is a vodeo a bout how a pip squeek gained his courage",
+      "length": 60,
+      "cost": 25.00
+    },
+    {
+      "id": 2,
+      "video_title": "My Life; It takes Two",
+      "creator": "Kim Sardashian",
+      "description": "This is a vodeo a bout how reality tv is poison",
+      "length": 25,
+      "cost": 15.99
+    },
+    {
+      "id": 3,
+      "video_title": "Meet Me 24",
+      "creator": "Cindy Castle",
+      "description": "This is a vodeo a bout cat fishing eh",
+      "length": 25,
+      "cost": 24.95
+    },
+    {
+      "id": 4,
+      "video_title": "The Secret Life Of Judy Tailor",
+      "creator": "Judy Tailor",
+      "description": "This is a vodeo a bout dumb stuff",
+      "length": 45,
+      "cost": 29.99
+    }
+  ]
+}
