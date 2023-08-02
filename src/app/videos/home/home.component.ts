@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { selectVideos } from '../store/videos.selector';
+import { invokeVideoAPI } from '../store/videos.action';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +11,9 @@ import { selectVideos } from '../store/videos.selector';
 export class HomeComponent implements OnInit {
   constructor(private store:Store){}
 
-  videos$ = this.store.pipe(select(selectVideos))
+  videos$ = this.store.pipe(select(selectVideos));
   
   ngOnInit(): void{
-
+    this.store.dispatch(invokeVideoAPI())
   }
 }

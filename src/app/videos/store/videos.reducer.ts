@@ -1,18 +1,15 @@
-import { createReducer } from "@ngrx/store";
+import { createReducer, on } from "@ngrx/store";
 import { Video } from "./video";
+import { videoFetchAPISuccess } from "./videos.action";
 
-export const initialState: ReadonlyArray<Video> = [{
-    "id": 4,
-    "video_title": "The Secret Life Of Judy Tailor",
-    "creator": "Judy Tailor",
-    "description": "This is a vodeo a bout dumb stuff",
-    "length": 45,
-    "cost": 29.99
-  }];
+export const initialState: ReadonlyArray<Video> = [];
 
 export const videoReducer = createReducer(
-    initialState 
-)
+    initialState,
+    on(videoFetchAPISuccess, (state, {allVideos}) => {
+      return allVideos;
+    })
+);
 
 
 

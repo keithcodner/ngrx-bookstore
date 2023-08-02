@@ -1,7 +1,6 @@
 <div class="container mt-2">
     <div class="card-deck">
         <div class="card" *ngFor="let video of videos$ | async" >
-          <img class="card-img-top" src="..." alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">ID: {{video.id}}</h5>
             <h5 class="card-title">{{video.video_title}}</h5>
