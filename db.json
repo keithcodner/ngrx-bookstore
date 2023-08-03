@@ -6,7 +6,7 @@
       "creator": "Yohan Libert",
       "description": "This is a vodeo a bout how a pip squeek gained his courage",
       "length": 60,
-      "cost": 25.00
+      "cost": 25
     },
     {
       "id": 2,
@@ -31,6 +31,14 @@
       "description": "This is a vodeo a bout dumb stuff",
       "length": 45,
       "cost": 29.99
+    },
+    {
+      "id": 5,
+      "video_title": "A series of unfortunate events",
+      "creator": "lemoney snicket",
+      "description": "A story about 3 kids who are orphans",
+      "length": 60,
+      "cost": 25
     }
   ]
 }

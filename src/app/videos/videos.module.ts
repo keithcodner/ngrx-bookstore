@@ -8,6 +8,7 @@ import { videoReducer } from './store/videos.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { VideosEffects } from './store/videos.effects';
 import { AddComponent } from './add/add.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AddComponent } from './add/add.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     VideosRoutingModule,
     StoreModule.forFeature("myvideos", videoReducer),
     EffectsModule.forFeature([VideosEffects])

@@ -6,3 +6,7 @@ export interface Video {
     length: number
     cost: number
 }
+
+export interface VideoState{
+    videos: Video[]
+}

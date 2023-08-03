@@ -1,1 +1,27 @@
-<p>add works!</p>
+<div class="container">
+    <legend> Add a New Video</legend>
+    <div class="mb-3">
+        <label for="txtVideoTitle" class="form-label"> Title</label>
+        <input id="txtVideoTitle" [(ngModel)]="videoForm.video_title" type="text" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label for="txtVideoDescription" class="form-label"> Description</label>
+        <input id="txtVideoDescription" [(ngModel)]="videoForm.description" type="text" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label for="txtVideoCreator" class="form-label"> Creator</label>
+        <input id="txtVideoCreator" [(ngModel)]="videoForm.creator" type="text" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label for="txtVideoLength" class="form-label"> Length</label>
+        <input id="txtVideoLength" [(ngModel)]="videoForm.length" type="number" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label for="txtVideoPrice" class="form-label"> Price</label>
+        <input id="txtVideoPrice" [(ngModel)]="videoForm.cost" type="number" class="form-control" />
+    </div>
+
+    <br>
+
+    <button type="submit" class="btn btn-dark" (click)="save()" > Save Video Catelog</button>
+</div>

@@ -1,4 +1,9 @@
 <div class="container mt-2">
+    <div class="row">
+        <div class="col col-md4 offset-md-4">
+          <a routerLink="/add" href="" class="btn btn-dark">Add New Video</a>
+        </div>
+    </div>
     <div class="card-deck">
         <div class="card" *ngFor="let video of videos$ | async" >
           <div class="card-body">

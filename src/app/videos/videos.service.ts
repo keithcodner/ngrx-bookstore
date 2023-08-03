@@ -12,4 +12,8 @@ export class VideosService {
   get(){
     return this.http.get<Video[]>("http://localhost:3000/videos");
   }
+
+  saveVideo(payload:Video){
+    return this.http.post<Video>("http://localhost:3000/videos", payload);
+  }
 }
