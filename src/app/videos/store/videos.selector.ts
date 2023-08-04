@@ -6,9 +6,7 @@ import { Video } from "./video";
 export const selectVideos = createFeatureSelector<Video[]>("myvideos") 
 
 export const selectVideoById = (videoID:number) => {
-    return createSelector(
-        selectVideos,
-        (videos: Video[]) => {
+    return createSelector(selectVideos, (videos: Video[]) => {
             var videoById = videos.filter( _ => _.id == videoID);
 
             if(videoById.length == 0){
