@@ -9,8 +9,7 @@ import { setApiStatus } from 'src/app/shared/store/app.action';
 
 @Component({
   selector: 'app-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.css']
+  templateUrl: './add.component.html'
 })
 export class AddComponent {
   constructor(private store:Store, 

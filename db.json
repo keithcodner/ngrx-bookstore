@@ -6,7 +6,7 @@
       "creator": "Yohan Libert",
       "description": "This is a vodeo a bout how a pip squeek gained his courage",
       "length": 60,
-      "cost": 25
+      "cost": 77
     },
     {
       "id": 2,
@@ -39,6 +39,14 @@
       "description": "A story about 3 kids who are orphans",
       "length": 60,
       "cost": 25
+    },
+    {
+      "id": 6,
+      "video_title": "James Bond and the Sneaky Adventures",
+      "creator": "James Smith",
+      "description": "This is a movie about james bond",
+      "length": 50,
+      "cost": 741
     }
   ]
 }

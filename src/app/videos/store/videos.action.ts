@@ -1,6 +1,8 @@
 import { createAction, props } from "@ngrx/store";
 import { Video } from "./video";
 
+
+//Fetch
 export const invokeVideoAPI  = createAction(
     "[Video API] invoke video Fetch API"
 );
@@ -10,6 +12,7 @@ export const videoFetchAPISuccess  = createAction(
     props<{allVideos: Video[]}>()
 );
 
+//Save
 export const invokeSaveVideoAPI = createAction(
     "[Video API] invoke save video API ",
     props<{payload: Video}>()
@@ -17,5 +20,27 @@ export const invokeSaveVideoAPI = createAction(
 
 export const saveVideoAPISuccess = createAction(
     "[Video API] invoke save video API success ",
+    props<{response: Video}>()
+);
+
+//Update
+export const invokeUpdateVideoAPI = createAction(
+    "[Video API] invoke update video API ",
+    props<{payload: Video}>()
+);
+
+export const updateVideoAPISuccess = createAction(
+    "[Video API] invoke update video API success ",
+    props<{response: Video}>()
+);
+
+//Delete
+export const invokeDeleteVideoAPI = createAction(
+    "[Video API] invoke delete video API ",
+    props<{payload: Video}>()
+);
+
+export const deleteVideoAPISuccess = createAction(
+    "[Video API] invoke delete video API success ",
     props<{response: Video}>()
 );

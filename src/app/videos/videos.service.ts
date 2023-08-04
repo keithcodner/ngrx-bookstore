@@ -16,4 +16,8 @@ export class VideosService {
   saveVideo(payload:Video){
     return this.http.post<Video>("http://localhost:3000/videos", payload);
   }
+
+  update(payload:Video){
+    return this.http.put<Video>(`http://localhost:3000/videos/${payload.id}`, payload);
+  }
 }

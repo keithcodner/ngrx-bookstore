@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { EMPTY, map, switchMap, withLatestFrom } from "rxjs";
 import { VideosService } from "../videos.service";
-import { invokeSaveVideoAPI, invokeVideoAPI, saveVideoAPISuccess, videoFetchAPISuccess } from "./videos.action";
+import { invokeSaveVideoAPI, invokeUpdateVideoAPI, invokeVideoAPI, saveVideoAPISuccess, updateVideoAPISuccess, videoFetchAPISuccess } from "./videos.action";
 import { Appstate } from "src/app/shared/store/appstate";
 import { Store, select } from "@ngrx/store";
 import { setApiStatus } from "src/app/shared/store/app.action";
@@ -35,20 +35,37 @@ export class VideosEffects {
         );
 
         saveNewVideo$ = createEffect(() =>
-                this.actions$.pipe(
-                    ofType(invokeSaveVideoAPI),
-                    switchMap((action) => {
-                        this.appStore.dispatch(setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: ''}}))
-                        return this.videoService
-                        .saveVideo(action.payload)
-                        .pipe(
-                            map((data) => {
-                                this.appStore.dispatch(setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success'}}))
-                                return saveVideoAPISuccess({response: data})
-                            })
-                        )
-                    })
-                )
+            this.actions$.pipe(
+                ofType(invokeSaveVideoAPI),
+                switchMap((action) => {
+                    this.appStore.dispatch(setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: ''}}))
+                    return this.videoService
+                    .saveVideo(action.payload)
+                    .pipe(
+                        map((data) => {
+                            this.appStore.dispatch(setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success'}}))
+                            return saveVideoAPISuccess({response: data})
+                        })
+                    )
+                })
+            )
+        );
+
+        updateVideo$ = createEffect(() =>
+            this.actions$.pipe(
+                ofType(invokeUpdateVideoAPI),
+                switchMap((action) => {
+                    this.appStore.dispatch(setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: ''}}));
+                    return this.videoService
+                    .update(action.payload)
+                    .pipe(
+                        map((data) => {
+                            this.appStore.dispatch(setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success'}}))
+                            return updateVideoAPISuccess({response: data})
+                        })
+                    )
+                })
+            )
         );
 }
 

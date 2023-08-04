@@ -17,6 +17,10 @@
             <li class="list-group-item">$ {{video.cost}}</li>
             <small class="text-muted">Last updated 3 mins ago</small>
           </div>
+
+          <div class="card-body">
+            <a class="btn btn-dark" [routerLink]="['/edit', video.id]">Edit</a>
+          </div>
         </div>
         
     </div>
