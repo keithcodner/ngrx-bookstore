@@ -3,10 +3,10 @@
     {
       "id": 1,
       "video_title": "How To Train A Pip-Squeek",
-      "creator": "Yohan Libert",
+      "creator": "Yohan Libertz",
       "description": "This is a vodeo a bout how a pip squeek gained his courage",
-      "length": 60,
-      "cost": 77
+      "length": 88,
+      "cost": 33
     },
     {
       "id": 2,
@@ -47,6 +47,14 @@
       "description": "This is a movie about james bond",
       "length": 50,
       "cost": 741
+    },
+    {
+      "id": 7,
+      "video_title": "Excluding the",
+      "creator": "there were over 100",
+      "description": "pandemic year",
+      "length": 11,
+      "cost": 22
     }
   ]
 }

@@ -57,9 +57,11 @@ export class EditComponent {
     let appState$ = this.appStore.pipe(select(selectAppState));
 
     appState$.subscribe((data) => {
+      //console.log(data.apiStatus);
+      //this.router.navigate(['/'])
       if(data.apiStatus === 'success'){
         this.appStore.dispatch(
-          setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success'}})
+          setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: ''}})
         );
         this.router.navigate(['/'])
       }
