@@ -20,4 +20,8 @@ export class VideosService {
   update(payload:Video){
     return this.http.put<Video>(`http://localhost:3000/videos/${payload.id}`, payload);
   }
+
+  delete(id:number){
+    return this.http.delete(`http://localhost:3000/videos/${id}`);
+  }
 }

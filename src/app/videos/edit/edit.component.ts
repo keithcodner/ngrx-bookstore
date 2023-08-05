@@ -55,7 +55,6 @@ export class EditComponent {
     this.store.dispatch(invokeUpdateVideoAPI({payload: {...this.videoForm}}));
 
     let appState$ = this.appStore.pipe(select(selectAppState));
-
     appState$.subscribe((data) => {
       //console.log(data.apiStatus);
       //this.router.navigate(['/'])

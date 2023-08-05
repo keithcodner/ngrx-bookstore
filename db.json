@@ -1,22 +1,6 @@
 {
   "videos": [
     {
-      "id": 1,
-      "video_title": "How To Train A Pip-Squeek",
-      "creator": "Yohan Libertz",
-      "description": "This is a vodeo a bout how a pip squeek gained his courage",
-      "length": 88,
-      "cost": 33
-    },
-    {
-      "id": 2,
-      "video_title": "My Life; It takes Two",
-      "creator": "Kim Sardashian",
-      "description": "This is a vodeo a bout how reality tv is poison",
-      "length": 25,
-      "cost": 15.99
-    },
-    {
       "id": 3,
       "video_title": "Meet Me 24",
       "creator": "Cindy Castle",
@@ -47,14 +31,6 @@
       "description": "This is a movie about james bond",
       "length": 50,
       "cost": 741
-    },
-    {
-      "id": 7,
-      "video_title": "Excluding the",
-      "creator": "there were over 100",
-      "description": "pandemic year",
-      "length": 11,
-      "cost": 22
     }
   ]
 }

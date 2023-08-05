@@ -37,10 +37,10 @@ export const updateVideoAPISuccess = createAction(
 //Delete
 export const invokeDeleteVideoAPI = createAction(
     "[Video API] invoke delete video API ",
-    props<{payload: Video}>()
+    props<{id: number}>()
 );
 
 export const deleteVideoAPISuccess = createAction(
     "[Video API] invoke delete video API success ",
-    props<{response: Video}>()
+    props<{id: number}>()
 );
