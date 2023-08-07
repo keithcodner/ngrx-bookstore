@@ -1,0 +1,3 @@
+sequelize-auto -h localhost -d video_catelog -u root -x root -p 3306  --dialect mysql -c C:\xampp\models -o C:\xampp\models
+
+sequelize-auto -o "./models" -d video_catelog -h localhost -u root -p 3306 -x root -e mysql
