@@ -7,16 +7,12 @@ const {User, Product} = require('./app/models');
 
 const app = express();
 app.use(cors());
-
-//all user data
-app.get('/user', (req, res) => {
-
-});
+app.use(bodyparser.json());
 
 //all video data
-app.get('/videos', (req, res) => {
+app.get('/videos', async(req, res) => {
     //Product.findAll({ where: { video_title: "Meet Me 24"}})
-    Product.findAll()
+    await Product.findAll()
         .then((products) => {
             res.send(products);
         })
@@ -26,14 +22,18 @@ app.get('/videos', (req, res) => {
 });
 
 // insert video
-app.post('/videos', (req, res) => {
-    Product.create({
+app.post('/videos', async (req, res) => {
+
+    const video = {
+        cost: req.body.cost,
         video_title: req.body.video_title,
         creator: req.body.creator,
         description: req.body.description,
         length: req.body.length,
-        cost: req.body.cost
-    })
+       
+      };
+
+    await Product.create(req.body)
     .catch((err) => {
         console.log(err);
     });
@@ -42,8 +42,8 @@ app.post('/videos', (req, res) => {
 });
 
 //update video
-app.put('/videos/:id', (req, res) => {
-    Product.create({
+app.put('/videos/:id', async (req, res) => {
+    await Product.update({
         video_title: req.body.video_title,
         creator: req.body.creator,
         description: req.body.description,
@@ -51,7 +51,7 @@ app.put('/videos/:id', (req, res) => {
         cost: req.body.cost
     },
     {
-        where: req.params.id
+        where: {id: req.params.id}
     })
     .catch((err) => {
         console.log(err);
@@ -62,9 +62,9 @@ app.put('/videos/:id', (req, res) => {
 });
 
 //delete video
-app.delete('/videos/:id', (req, res) => {
-    Product.destroy({
-        where: req.params.id
+app.delete('/videos/:id', async (req, res) => {
+    await Product.destroy({
+        where: {id: req.params.id}
     })
     .catch((err) => {
         console.log(err);
@@ -79,7 +79,7 @@ app.delete('/videos/:id', (req, res) => {
     
 // });
 
-app.use(bodyparser.json());
+
 
 db.sequelize.sync().then((req) => {
     app.listen(3000, ()=>{
