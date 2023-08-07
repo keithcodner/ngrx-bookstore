@@ -13,12 +13,68 @@ const db = mysql.createConnection({
     port: 3306,
 });
 
+app.use(cors());
+
 db.connect(err => {
     if(err) {console.log(err, 'db err');}
     console.log('database connected');
 });
 
-app.use(cors());
+//all user data
+app.get('/user', (req, res) => {
+    let qr = 'select * from user';
+
+    db.query(qr, (err, result) => {
+        if(err) {console.log(err, 'db err');}
+
+        if(result.length > 0){
+            res.send({
+                message: 'all user data',
+                data: result
+            });
+        }
+    });
+});
+
+//all video data
+app.get('/videos', (req, res) => {
+    let qr = 'select * from product';
+
+    db.query(qr, (err, result) => {
+        if(err) {console.log(err, 'db err');}
+
+        if(result.length > 0){
+            res.send(result);
+        }
+    });
+});
+
+
+//get single data
+app.get('/user/:id', (req, res) => {
+    let gID = req.params.id;
+
+    let qr = `select * from user where id = ${gID}`;
+
+    db.query(qr, (err, result) => {
+        if(err) {console.log(err, 'db err');}
+
+        if(result.length > 0){
+            res.send({
+                message: 'single user',
+                data: result
+            });
+        }else{
+            res.send({
+                message: 'data not found'
+            });
+        }
+    });
+});
+
+
+
+
 app.use(bodyparser.json());
 app.listen(3000, ()=>{
     console.log('server running...');
