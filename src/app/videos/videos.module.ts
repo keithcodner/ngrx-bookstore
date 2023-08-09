@@ -10,12 +10,16 @@ import { VideosEffects } from './store/videos.effects';
 import { AddComponent } from './add/add.component';
 import { FormsModule } from '@angular/forms';
 import { EditComponent } from './edit/edit.component';
+import { CartComponent } from './cart/cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout/checkout.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     AddComponent,
-    EditComponent
+    EditComponent,
+    CartComponent,
+    CheckoutComponent
   ],
   imports: [
     CommonModule,

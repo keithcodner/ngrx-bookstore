@@ -1,6 +1,21 @@
-<nav class="navbar navbar-dark bg-dark">
-  <div class="conter-fluid">
-    <div class="navbar-brand"> Video Catelog</div>
+<nav class="navbar navbar-expand navbar-dark bg-primary justify-content-between">
+  <a class="navbar-brand">Video Catelog</a>
+
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" routerLink="/" href="#">Home </a>
+      <a class="nav-item nav-link" routerLink="/cart" href="#">View Cart</a>
+      <a class="nav-item nav-link" routerLink="/checkout" href="#">Check Out</a>
+    </div>
   </div>
+
+  <!-- <button type="button" class="btn btn-success ml-4" data-toggle="modal" data-target="#cartModal">
+    View Cart
+  </button>   -->
+  <!-- <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-warning my-2 my-sm-0" >Search</button>
+  </form> -->
+  
 </nav>
 <router-outlet></router-outlet>
