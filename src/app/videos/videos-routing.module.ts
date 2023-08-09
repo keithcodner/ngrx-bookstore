@@ -5,6 +5,7 @@ import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { CartComponent } from './cart/cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout/checkout.component';
+import { OrdersComponent } from './orders/orders/orders.component';
 
 const routes: Routes = [
   { path:'', component:HomeComponent },
@@ -16,6 +17,8 @@ const routes: Routes = [
   { path:'cart', component:CartComponent },
   { path:'cartAddById/:id', component:CartComponent },
   { path:'cartRemoveById/:id', component:CartComponent },
+  { path:'orders', component:OrdersComponent },
+  { path:'orderGet', component:OrdersComponent },
   
   
 ];

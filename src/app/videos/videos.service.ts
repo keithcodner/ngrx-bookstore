@@ -9,6 +9,7 @@ export class VideosService {
 
   constructor(private http:HttpClient) { }
 
+  // Home Endpoints
   get(){
     return this.http.get<Video[]>("http://localhost:3000/videos");
   }
@@ -24,4 +25,10 @@ export class VideosService {
   delete(id:number){
     return this.http.delete(`http://localhost:3000/videos/${id}`);
   }
+
+  // Cart End points
+
+  // Checkout Endpoints
+
+  // Order Endpoints
 }

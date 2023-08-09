@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { EditComponent } from './edit/edit.component';
 import { CartComponent } from './cart/cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout/checkout.component';
+import { OrdersComponent } from './orders/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CheckoutComponent } from './checkout/checkout/checkout.component';
     AddComponent,
     EditComponent,
     CartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    OrdersComponent
   ],
   imports: [
     CommonModule,
