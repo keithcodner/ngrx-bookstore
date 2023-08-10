@@ -1,8 +1,23 @@
 import { createReducer, on } from "@ngrx/store";
-import { Video } from "./video";
-import { deleteVideoAPISuccess, saveVideoAPISuccess, updateVideoAPISuccess, videoFetchAPISuccess } from "./videos.action";
+import { Video, Order, Transaction, User } from "./video";
+import { deleteVideoAPISuccess, invokeAddVideoToCart, saveVideoAPISuccess, updateVideoAPISuccess, videoFetchAPISuccess } from "./videos.action";
 
 export const initialState: ReadonlyArray<Video> = [];
+export const initialVideoCartState: ReadonlyArray<Video[]> = [];
+
+export const videoCartReducer = createReducer(
+  initialVideoCartState, // the initial state of the cart will be empty
+  
+  // on(invokeAddVideoToCart, (state, {response}) => {
+  //   let newState = [...state]; //grab whats already in the state
+  //   newState.unshift(response); // adds onto the existing state
+
+  //   return newState; // then return it
+  // }),
+
+
+
+  );
 
 //this manages the store
 export const videoReducer = createReducer(

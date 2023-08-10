@@ -39,6 +39,10 @@ export interface User {
     created_at: Date;
 }
 
+export interface VideoCart{
+    cart: Video[] // this holds an array of videos
+}
+
 export interface VideoState{
     videos: Video[]
 }

@@ -19,7 +19,7 @@
           </div>
 
           <div class="card-body">
-            <button type="button" class="btn btn-dark m-2" >Add To Cart</button>
+            <button type="button" class="btn btn-dark m-2" (click)="addToCart(video.id)">Add To Cart</button>
             <a class="btn btn-dark m-2" [routerLink]="['/edit', video.id]">Edit</a>
             <button type="button" class="btn btn-dark m-2" (click)="openDeleteModal(video.id)">Delete</button>
           </div>

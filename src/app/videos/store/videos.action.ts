@@ -44,3 +44,15 @@ export const deleteVideoAPISuccess = createAction(
     "[Video API] invoke delete video API success ",
     props<{id: number}>()
 );
+
+//--------------- CART SECTION ------------------
+
+export const invokeAddVideoToCart = createAction(
+    "[Video API] invoke add video to cart",
+    props<{payload: Video}>()
+);
+
+// export const invokeAddVideoToCartSuccess = createAction(
+//     "[Video API] invoke add video to cart",
+//     props<{payload: Video}>()
+// );

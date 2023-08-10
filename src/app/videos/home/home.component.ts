@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { selectVideos } from '../store/videos.selector';
-import { invokeDeleteVideoAPI, invokeVideoAPI } from '../store/videos.action';
+import { invokeAddVideoToCart, invokeDeleteVideoAPI, invokeVideoAPI } from '../store/videos.action';
 import { selectAppState } from 'src/app/shared/store/app.selector';
 import { Appstate } from 'src/app/shared/store/appstate';
 import { setApiStatus } from 'src/app/shared/store/app.action';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Video } from '../store/video';
 
 declare var window:any;
 
@@ -34,6 +35,10 @@ export class HomeComponent implements OnInit {
     );
 
     this.store.dispatch(invokeVideoAPI());
+  }
+
+  addToCart(id:number){
+    this.store.dispatch(invokeAddVideoToCart({id: this.idToDelete}))
   }
 
   openDeleteModal(id:number){

@@ -5,6 +5,7 @@ import { Video } from "./video";
 //This thing grabs things from the store
 export const selectVideos = createFeatureSelector<Video[]>("myvideos") 
 
+//this filters the things it selects
 export const selectVideoById = (videoID:number) => {
     return createSelector(selectVideos, (videos: Video[]) => {
             var videoById = videos.filter( _ => _.id == videoID);
