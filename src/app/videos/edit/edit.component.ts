@@ -21,15 +21,14 @@ export class EditComponent {
     private route:ActivatedRoute,
     private router:Router,
     private appStore:Store<Appstate>,
-    ){
-
-  }
+    ){ }
 
   videoForm:Video = {
     id: 0,
     video_title: "",
     creator: "",
     description: "",
+    img_path: "",
     length: 0,
     cost: 0
   }
@@ -52,9 +51,11 @@ export class EditComponent {
   }
 
   update(){
-    this.store.dispatch(invokeUpdateVideoAPI({payload: {...this.videoForm}}));
+    this.store.dispatch(invokeUpdateVideoAPI({payload: {...this.videoForm}})); // triggers the event to store/update data
 
-    let appState$ = this.appStore.pipe(select(selectAppState));
+    let appState$ = this.appStore.pipe(select(selectAppState)); //selects the app state from the store
+
+    //below is the appstate being tracked
     appState$.subscribe((data) => {
       //console.log(data.apiStatus);
       //this.router.navigate(['/'])

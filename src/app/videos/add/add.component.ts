@@ -21,6 +21,7 @@ export class AddComponent {
     video_title: "",
     creator: "",
     description: "",
+    img_path: "",
     length: 0,
     cost: 0
   }
@@ -30,7 +31,8 @@ export class AddComponent {
   }
 
   save(){
-    this.store.dispatch(invokeSaveVideoAPI({payload:{...this.videoForm}}));
+    this.store.dispatch(invokeSaveVideoAPI({payload:{...this.videoForm}})); // save all videos to store
+
     let appState$ = this.appStore.pipe(select(selectAppState));
     appState$.subscribe((data) => {
       if(data.apiStatus === 'success'){

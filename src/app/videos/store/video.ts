@@ -3,6 +3,7 @@ export interface Video {
     video_title: string;
     creator: string;
     description: string;
+    img_path: string;
     length: number;
     cost: number;
 }

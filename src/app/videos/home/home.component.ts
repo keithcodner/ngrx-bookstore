@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
     private router:Router,
     ){}
 
-  videos$ = this.store.pipe(select(selectVideos));
+  videos$ = this.store.pipe(select(selectVideos)); // select data from store
 
   deleteModal:any;
   idToDelete:number = 0;
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
   }
 
   addToCart(id:number){
-    this.store.dispatch(invokeAddVideoToCart({id: this.idToDelete}))
+    //this.store.dispatch(invokeAddVideoToCart({id: this.idToDelete}))
   }
 
   openDeleteModal(id:number){

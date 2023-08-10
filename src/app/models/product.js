@@ -19,6 +19,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: true
     },
+    img_path: {
+      type: DataTypes.STRING(5000),
+      allowNull: true
+    },
     length: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: true,

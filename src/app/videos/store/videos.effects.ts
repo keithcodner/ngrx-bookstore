@@ -27,7 +27,7 @@ export class VideosEffects {
 
                     return this.videoService.get()
                     .pipe(
-                        map((data) => videoFetchAPISuccess({allVideos: data}))
+                        map((data) => videoFetchAPISuccess({allVideos: data})) // this is how you know when the action is call...only connection to the outside world
                     )
                 })
             )
