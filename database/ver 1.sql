@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `video_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `creator` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `img_path` varchar(5000) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `length` int unsigned DEFAULT '0',
   `cost` decimal(20,6) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
