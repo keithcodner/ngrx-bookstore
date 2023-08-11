@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { VideosRoutingModule } from './videos-routing.module';
 import { HomeComponent } from './home/home.component';
 import { StoreModule } from '@ngrx/store';
-import { videoReducer } from './store/videos.reducer';
+import { videoCartReducer, videoReducer } from './store/videos.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { VideosEffects } from './store/videos.effects';
 import { AddComponent } from './add/add.component';
@@ -28,6 +28,7 @@ import { OrdersComponent } from './orders/orders/orders.component';
     FormsModule,
     VideosRoutingModule,
     StoreModule.forFeature("myvideos", videoReducer),
+    StoreModule.forFeature("mycartvideos", videoCartReducer),
     EffectsModule.forFeature([VideosEffects])
     
   ]

@@ -4,6 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/appstate';
 import { Video } from '../../store/video';
 import { selectCartVideos } from '../../store/videos.selector';
+import { invokeVideoCartFetch } from '../../store/videos.action';
 
 @Component({
   selector: 'app-checkout',
@@ -25,6 +26,9 @@ export class CheckoutComponent {
 
   ngOnInit(): void {
 
+    this.store.dispatch(invokeVideoCartFetch());
   }
+
+
 
 }

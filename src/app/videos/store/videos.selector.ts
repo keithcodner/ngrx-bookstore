@@ -1,15 +1,15 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { Video } from "./video";
+import { Video, VideoCartItems } from "./video";
 
 
 //This thing grabs things from the store
 export const selectVideos = createFeatureSelector<Video[]>("myvideos");
-export const selectCartVideos = createFeatureSelector<Video[]>("mycartvideos");
+export const selectCartVideos = createFeatureSelector<VideoCartItems[]>("mycartvideos");
 
 //select cart video by id
 export const selectCartVideoById = (videoID:number) => {
-    return createSelector(selectCartVideos, (videos: Video[]) => {
-            var videoById = videos.filter( _ => _.id == videoID);
+    return createSelector(selectCartVideos, (videos: VideoCartItems[]) => {
+            var videoById = videos.filter( _ => _.video_id == videoID);
 
             if(videoById.length == 0){
                 return null;

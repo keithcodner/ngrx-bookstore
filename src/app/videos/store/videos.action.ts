@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Video } from "./video";
+import { Video, VideoCartItems } from "./video";
 
 
 //Fetch
@@ -46,10 +46,23 @@ export const deleteVideoAPISuccess = createAction(
 );
 
 //--------------- CART SECTION ------------------
+export const invokeVideoCartFetch = createAction(
+    "[Video API] invoke video cart Fetch API"
+);
 
-export const invokeAddVideoToCart = createAction(
+export const videoCartFetchSuccess  = createAction(
+    "[Video API] video Fetch cart API success",
+    props<{allCartVideos: VideoCartItems[]}>()
+);
+
+export const invokeAddVideoToVideoCart = createAction(
     "[Video API] invoke add video to cart",
-    props<{payload: Video}>()
+    props<{video: VideoCartItems}>()
+);
+
+export const invokeUpdateVideoToVideoCartQuantity = createAction(
+    "[Video API] invoke update video to cart quantity",
+    props<{video: VideoCartItems}>()
 );
 
 // export const invokeAddVideoToCartSuccess = createAction(

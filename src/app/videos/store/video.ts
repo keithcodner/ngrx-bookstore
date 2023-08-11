@@ -8,6 +8,15 @@ export interface Video {
     cost: number;
 }
 
+export interface VideoCartItems{
+    id: string;
+    video_id:number;
+    numberOfItems:number;
+    totalPrice: number;
+    video:Video;
+}
+
+
 export interface Order {
     id: number;
     user_id: number;
@@ -40,9 +49,6 @@ export interface User {
     created_at: Date;
 }
 
-export interface VideoCart{
-    cart: Video[] // this holds an array of videos
-}
 
 export interface VideoState{
     videos: Video[]
