@@ -4,7 +4,7 @@ import { deleteVideoAPISuccess, invokeAddVideoToVideoCart, invokeUpdateVideoToVi
 
 export const initialState: ReadonlyArray<Video> = []; //instantiate avaiable videos from api into available video array
 //instantiate cart video array, for selected video to be put into video cart array
-export const initialVideoCartState: ReadonlyArray<VideoCartItems> = []
+export const initialVideoCartState: ReadonlyArray<VideoCartItems> = [];
 
 export const videoCartReducer = createReducer(
     initialVideoCartState, // the initial state of the cart will be empty
@@ -18,7 +18,7 @@ export const videoCartReducer = createReducer(
       return newState; // then return it
     }),
     on(invokeUpdateVideoToVideoCartQuantity, (state, {video}) => {
-      let newState = state.filter(_ => _.id !== video.id ); //filter the state that we need to update and grab it
+      let newState = state.filter(_ => _.cart_id !== video.cart_id ); //filter the state that we need to update and grab it
       newState.unshift(video); // update it 
 
       return newState; // then return it

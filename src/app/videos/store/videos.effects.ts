@@ -8,12 +8,16 @@ import { Store, select } from "@ngrx/store";
 import { setApiStatus } from "src/app/shared/store/app.action";
 import { selectVideos } from "./videos.selector";
 
+
+// Only needs to be used when returning an api call from an action
 @Injectable()
 export class VideosEffects {
-    constructor(private actions$:Actions,
+    constructor(
+        private actions$:Actions,
         private videoService:VideosService,
         private appStore:Store<Appstate>,
-        private store:Store){}
+        private store:Store
+    ){}
 
         loadAllVideos$ = createEffect(() => 
             this.actions$.pipe(
@@ -27,7 +31,8 @@ export class VideosEffects {
 
                     return this.videoService.get()
                     .pipe(
-                        map((data) => videoFetchAPISuccess({allVideos: data})) // this is how you know when the action is call...only connection to the outside world
+                        // this is how you know when the action is call...only connection to the outside world
+                        map((data) => videoFetchAPISuccess({allVideos: data})) 
                     )
                 })
             )

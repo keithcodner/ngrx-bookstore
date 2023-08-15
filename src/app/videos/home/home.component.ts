@@ -7,6 +7,8 @@ import { Appstate } from 'src/app/shared/store/appstate';
 import { setApiStatus } from 'src/app/shared/store/app.action';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Video, VideoCartItems } from '../store/video';
+import { filter, first, forkJoin, interval, map, merge, mergeAll, switchMap, take } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 declare var window:any;
 
@@ -17,10 +19,11 @@ declare var window:any;
 })
 export class HomeComponent implements OnInit {
   constructor(
-    private store:Store,
-    private appStore:Store<Appstate>,
-    private route:ActivatedRoute,
-    private router:Router,
+      private store:Store,
+      private appStore:Store<Appstate>,
+      private route:ActivatedRoute,
+      private router:Router,
+      private http:HttpClient
     ){}
 
   videos$ = this.store.pipe(select(selectVideos)); // select data from store
@@ -46,41 +49,87 @@ export class HomeComponent implements OnInit {
 
   addToCart(id:number){
 
-    let selectedAvailableVideo$ = this.store.pipe(select(selectVideoById(id)));
-    let currenAddVideoID:number = 0;
+    let selectedAvailableVideo$ = this.store.pipe(select(selectVideoById(id))).pipe(first());
+    let queryCartVideoData$ = this.store.pipe(select(selectCartVideoById(id))).pipe(first());
 
-    selectedAvailableVideo$.subscribe((data) => {
-      if(data){
+    forkJoin({
+      selectedAvailableVideo: selectedAvailableVideo$,
+      queryCartVideoData: queryCartVideoData$
+    }).subscribe((data) => {
+      if(data.selectedAvailableVideo != null){ // if there is data
 
-        let videoCartItem:VideoCartItems = {
-          id: crypto.randomUUID(),
-          video_id: data.id,
+        //default video cart template
+        let videoCartItemDefault:VideoCartItems = {
+          cart_id: crypto.randomUUID(),
+          video_id: data.selectedAvailableVideo.id,
           numberOfItems: 1,
-          totalPrice: data.cost,
-          video: data // is of type Video, like in interface
+          totalPrice: data.selectedAvailableVideo.cost,
+          video: data.selectedAvailableVideo // is of type Video, like in interface
         }
 
-        currenAddVideoID = data.id;
+        // if data is found in the video cart; update quantity
+        if(data.queryCartVideoData != null){ 
 
-        this.store.dispatch(invokeAddVideoToVideoCart({ video: videoCartItem }))
-        this.addToCartToastTrigger();
+          let numberOfItemsCount:number = data.queryCartVideoData.numberOfItems;
+          numberOfItemsCount = numberOfItemsCount + 1;
+
+          let totalsCount:number = data.queryCartVideoData.totalPrice;
+          totalsCount = numberOfItemsCount + totalsCount;
+
+          let videoCartItemDefaultUpdate:VideoCartItems = {
+            ...data.queryCartVideoData,
+            numberOfItems: numberOfItemsCount,
+            totalPrice: totalsCount
+          }
+
+          console.log('update quantity of video in cart');
+          console.log(numberOfItemsCount);
+
+          this.store.dispatch(invokeUpdateVideoToVideoCartQuantity({ video: videoCartItemDefaultUpdate })); 
+          this.addToCartToastTrigger();
+        }else{
+          console.log('add video to cart');
+
+          //if there is no queryCartVideoData data found, then add a new video to the cart
+          this.store.dispatch(invokeAddVideoToVideoCart({ video: videoCartItemDefault })); 
+          this.addToCartToastTrigger();
+        }
       }
     });
-
-    let queryCartVideoData$ = this.store.pipe(select(selectCartVideoById(currenAddVideoID)));
-
-    //this part makes it so that if the same item is added to the cart multiple times, the quantity of the existing object is updated instead of another of the same object being added
-    queryCartVideoData$.subscribe((data2) => {
-      if(data.id == data2?.video.id){
-        this.store.dispatch(invokeUpdateVideoToVideoCartQuantity({ video: videoCartItem }))
-        this.addToCartToastTrigger();
-      }else{
-        
-      }
-    });
-
 
   }
+
+    // selectedAvailableVideo$.subscribe((data) => {
+    //   if(data){
+
+        // let videoCartItemDefault:VideoCartItems = {
+        //   id: crypto.randomUUID(),
+        //   video_id: data.id,
+        //   numberOfItems: 1,
+        //   totalPrice: data.cost,
+        //   video: data // is of type Video, like in interface
+        // }
+
+    //     //this part makes it so that if the same item is added to the cart multiple times, the quantity of the existing object is updated instead of another of the same object being added
+    //     // queryCartVideoData$.subscribe((data2) => {
+
+    //     //   console.log('data2: ' + data2?.video_id);
+    //     //   console.log('data: ' +data.id);
+
+          
+    //     // });
+
+    //     // adds to the cart store
+    //     this.store.dispatch(invokeAddVideoToVideoCart({ video: videoCartItemDefault })); 
+
+
+    //     this.addToCartToastTrigger();
+
+
+        
+    //   }
+    // });
+ 
 
   addToCartToastTrigger(){
 

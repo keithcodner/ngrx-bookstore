@@ -62,7 +62,8 @@ proposed video cart model example:
 
 ----------START SERVERS NGRX VIDEO CATELOG-----------
 
-- start express server: 'node index.js' in the directory of  src
+- start express server: '
+' in the directory of  src
 - start web server: ng serve -o in the directory of  src
 
 
@@ -121,3 +122,87 @@ proposed video cart model example:
     });
   }
 
+
+
+  ----------NOTES 2-----------
+  addToCart(id:number){
+
+    let selectedAvailableVideo$ = this.store.pipe(select(selectVideoById(id)));
+    let currenAddVideoID:number = 0;
+
+    selectedAvailableVideo$.subscribe((data) => {
+      if(data){
+
+        let videoCartItem:VideoCartItems = {
+          id: crypto.randomUUID(),
+          video_id: data.id,
+          numberOfItems: 1,
+          totalPrice: data.cost,
+          video: data // is of type Video, like in interface
+        }
+
+        currenAddVideoID = data.id;
+
+        this.store.dispatch(invokeAddVideoToVideoCart({ video: videoCartItem }))
+        this.addToCartToastTrigger();
+      }
+    });
+
+    let queryCartVideoData$ = this.store.pipe(select(selectCartVideoById(currenAddVideoID)));
+
+    //this part makes it so that if the same item is added to the cart multiple times, the quantity of the existing object is updated instead of another of the same object being added
+    queryCartVideoData$.subscribe((data2) => {
+      if(data.id == data2?.video.id){
+        this.store.dispatch(invokeUpdateVideoToVideoCartQuantity({ video: videoCartItem }))
+        this.addToCartToastTrigger();
+      }else{
+        
+      }
+    });
+
+
+  }
+
+
+--------------------------------------------------
+//mergeMap - allows you to combine two observables, the inner observable is used first, and then the outer observable (everything all at once)
+//switchMap - allows you run a new observable, while getting rid of the old one (one at a time, waiting for the old observable to be gone before starting a new one)- so essential you are switching the map
+of(1, 2, 3, 4) // emits a stream of variables with go in the order of numbers
+let a = [1, 2]
+let b = a.map(x => x * 2); // will multiple each value by 2
+
+// will print each number and add 10
+of(1, 2, 3, 4).pipe(map((v) => v + 10)).subscribe(console.log)
+
+// merge allows you merge the two observables and which ever it gets to the one first, it will emit firstlet 
+sourc1$ = interval(1000).pipe(map((val) => 'value from source 1' + val), take(5));
+let sourc2$ = interval(500).pipe(map((val) => 'value from source 1' + val), take(5));
+merge(sourc1$, sourc2$).subscribe((data) => {
+    console.log(data);
+})
+pipe = what you tell it to do ie.filtersubscribe = is the result of what it will do ie.a command, like print to console or do an action
+
+
+//mergeAll will take the count from the outer observable, but display the data from the inner observable 
+sourc1$.pipe(map((val) => sourc2$), mergeAll()).subscribe((data) => {
+  console.log(data)
+})
+
+//mergeMap does the same thing as about but withoutmergeAll
+sourc1$.pipe(mapMap((val) => sourc2$)).subscribe((data) => {
+  console.log(data)
+})
+
+//switchMap// this loops through via an interval through ids up to 5 And so, because the interval is very quickthe switchMap will cancel the first 4 requests and emit the last request because it switches to the nextinterval and cancels anything else
+let postIds = interval(1).pipe(filter((val) => val > 0), 
+                               take(5) // prints only the first 5        );
+                               postIds.pipe(switchMap((id) => {
+  return this.http.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
+})).subscribe((postDetails) => {
+  console.log(postDetails)
+})
+
+
+import { filter as _filter, find, minBy, sortBy, keyBy, mapValues, cloneDeep } from 'lodash';
+import { asyncScheduler, combineLatest, forkJoin, interval, merge, Observable, of, race, Subscription } from 'rxjs';
+import { debounceTime, filter, first, map, mergeMap, pairwise,skip, startWith, switchMap, takeWhile, tap, take, skipWhile, distinctUntilChanged, observeOn } from 'rxjs/operators';

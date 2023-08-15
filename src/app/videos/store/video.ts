@@ -9,7 +9,7 @@ export interface Video {
 }
 
 export interface VideoCartItems{
-    id: string;
+    cart_id: string;
     video_id:number;
     numberOfItems:number;
     totalPrice: number;
