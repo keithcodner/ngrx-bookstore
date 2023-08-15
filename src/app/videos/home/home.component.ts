@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
 
   addToCart(id:number){
 
+    // you have to use the .first() function with the forkjoin operator, because it observable needs to end first
     let selectedAvailableVideo$ = this.store.pipe(select(selectVideoById(id))).pipe(first());
     let queryCartVideoData$ = this.store.pipe(select(selectCartVideoById(id))).pipe(first());
 
