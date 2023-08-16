@@ -55,13 +55,19 @@ export class HomeComponent implements OnInit {
     }).subscribe((data) => {
       if(data.selectedAvailableVideo != null){ // if there is data
 
+        //remake video object so cost doesn't have so many trailing/leading zeros
+        let innerVideo:Video = {
+          ...data.selectedAvailableVideo,
+          cost: Number(data.selectedAvailableVideo.cost)
+        }
+
         //default video cart template
         let videoCartItemDefault:VideoCartItems = {
           cart_id: crypto.randomUUID(),
           video_id: data.selectedAvailableVideo.id,
           numberOfItems: 1,
           totalPrice: Number(data.selectedAvailableVideo.cost),
-          video: data.selectedAvailableVideo // is of type Video, like in interface
+          video: innerVideo // is of type Video, like in interface
         }
 
         // if data is found in the video cart; update quantity

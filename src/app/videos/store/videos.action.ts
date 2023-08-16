@@ -46,6 +46,8 @@ export const deleteVideoAPISuccess = createAction(
 );
 
 //--------------- CART SECTION ------------------
+
+//Fetch Cart
 export const invokeVideoCartFetch = createAction(
     "[Video API] invoke video cart Fetch API"
 );
@@ -55,14 +57,32 @@ export const videoCartFetchSuccess  = createAction(
     props<{allCartVideos: VideoCartItems[]}>()
 );
 
+//Add To Cart
 export const invokeAddVideoToVideoCart = createAction(
     "[Video API] invoke add video to cart",
     props<{video: VideoCartItems}>()
 );
 
+//Update Cart
 export const invokeUpdateVideoToVideoCartQuantity = createAction(
     "[Video API] invoke update video to cart quantity",
     props<{video: VideoCartItems}>()
+);
+
+//RemoveFrom Cart
+export const invokeRemoveVideoFromVideoCart = createAction(
+    "[Video API] invoke remove video from cart",
+    props<{id: number}>()
+);
+
+export const invokeAddVideoQuantityToVideoCart = createAction(
+    "[Video API] invoke add video qty from cart",
+    props<{id: number, qty: number}>()
+);
+
+export const invokeRemoveVideoQuantityFromVideoCart = createAction(
+    "[Video API] invoke remove video qty from cart",
+    props<{id: number, qty: number}>()
 );
 
 // export const invokeAddVideoToCartSuccess = createAction(

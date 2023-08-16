@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/appstate';
 import { Video, VideoCartItems } from '../../store/video';
 import { selectCartVideos } from '../../store/videos.selector';
-import { invokeVideoCartFetch } from '../../store/videos.action';
+import { invokeAddVideoQuantityToVideoCart, invokeRemoveVideoFromVideoCart, invokeRemoveVideoQuantityFromVideoCart, invokeVideoCartFetch } from '../../store/videos.action';
 import { map, reduce } from 'rxjs';
 
 @Component({
@@ -32,15 +32,26 @@ export class CartComponent {
 
     // each time you use map, you loop down each hierarchy in the object/shape
     const grandTotal$ = this.cartVideosTotalPrice$.pipe(
-      map(
-        x => x.reduce((acc, val) => {
+      map(videoCart => videoCart.reduce((acc, val) => {
           let data:number = Number(acc) + Number(val.totalPrice);
           return data;
-        }, 0)
+        }, 0).toFixed(2)
       )
     );
     
     grandTotal$.subscribe((data) => this.htmlGrandTotal =  Number(data));
+  }
+
+  removeFromCart(id:number){
+    this.store.dispatch(invokeRemoveVideoFromVideoCart({id: id}));
+  }
+
+  addQuantity(id:number, qty:number){
+    this.store.dispatch(invokeAddVideoQuantityToVideoCart({id: id, qty: qty}));
+  }
+
+  removeQuantity(id:number, qty:number){
+    this.store.dispatch(invokeRemoveVideoQuantityFromVideoCart({id: id, qty: qty}));
   }
 
 }

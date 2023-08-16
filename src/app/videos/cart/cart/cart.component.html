@@ -17,7 +17,8 @@
                 <th scope="col">Product</th>
                 <th scope="col">Price</th>
                 <th scope="col">Qty</th>
-                <th scope="col">Total</th>
+                <th scope="col">Sub Total</th>
+                <th scope="col">Add/Sub</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
@@ -32,9 +33,13 @@
                 <td class="qty"><input type="text" class="form-control" id="input1" value="{{cartVideo.numberOfItems}}" disabled></td>
                 <td>${{ cartVideo.video.cost * cartVideo.numberOfItems }}</td>
                 <td>
-                  <a href="#" class="btn btn-danger btn-sm">
-                    <i class="fa fa-times"></i>
-                  </a>
+                  <button type="button" class="btn btn-warning btn-sm p-2" (click)="addQuantity(cartVideo.video_id, cartVideo.numberOfItems)" data-dismiss="modal">+</button>/
+                  <button type="button" class="btn btn-warning btn-sm p-2" (click)="removeQuantity(cartVideo.video_id, cartVideo.numberOfItems)" data-dismiss="modal">-</button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-danger" (click)="removeFromCart(cartVideo.video_id)" data-dismiss="modal">Remove</button>
+
+                  
                 </td>
               </tr>
               <!-- end of table row -->

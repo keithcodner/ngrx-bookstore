@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { Video, Order, Transaction, User, VideoCartItems } from "./video";
-import { deleteVideoAPISuccess, invokeAddVideoToVideoCart, invokeUpdateVideoToVideoCartQuantity, saveVideoAPISuccess, updateVideoAPISuccess, videoCartFetchSuccess, videoFetchAPISuccess } from "./videos.action";
+import { deleteVideoAPISuccess, invokeAddVideoQuantityToVideoCart, invokeAddVideoToVideoCart, invokeRemoveVideoFromVideoCart, invokeRemoveVideoQuantityFromVideoCart, invokeUpdateVideoToVideoCartQuantity, saveVideoAPISuccess, updateVideoAPISuccess, videoCartFetchSuccess, videoFetchAPISuccess } from "./videos.action";
 
 export const initialState: ReadonlyArray<Video> = []; //instantiate avaiable videos from api into available video array
 //instantiate cart video array, for selected video to be put into video cart array
@@ -21,7 +21,22 @@ export const videoCartReducer = createReducer(
       let newState = state.filter(_ => _.cart_id !== video.cart_id ); //filter the state that we need to update and grab it
       newState.unshift(video); // update it 
 
-      return newState; // then return it
+      return newState; // then return it invokeRemoveVideoFromVideoCart
+    }),
+    on(invokeRemoveVideoFromVideoCart, (state, {id}) => {
+      let newState = state.filter(_ => _.video_id !== id ); //filter the state that we need to update and grab it
+
+      return newState; // then return it 
+    }),
+    on(invokeAddVideoQuantityToVideoCart, (state, {id, qty}) => {
+      let newState = state.filter(_ => _.video_id !== id ); //filter the state that we need to update and grab it
+
+      return newState; // then return it 
+    }),
+    on(invokeRemoveVideoQuantityFromVideoCart, (state, {id, qty}) => {
+      let newState = state.filter(_ => _.video_id !== id ); //filter the state that we need to update and grab it
+      
+      return newState; // then return it 
     }),
   );
 
@@ -30,12 +45,24 @@ export const videoReducer = createReducer(
     initialState,
     //state; is the normal existing state
     //id; is the properties of the action method
+    //re-add the object to new object array with mutated cost...so theres no leading/trailing zeros
     on(videoFetchAPISuccess, (state, {allVideos}) => {
-      return allVideos;
+      let newAllVideo = allVideos.map(video => {
+        let newVideo:Video = {
+          ...video,
+          cost: Number(video.cost)
+        }
+        return newVideo;
+      });
+      return newAllVideo;
     }),
     on(saveVideoAPISuccess, (state, {response}) => {
       let newState = [...state]; //grab whats already in the state
-      newState.unshift(response); // adds onto the existing state
+      let editedResponse = {
+        ...response,
+        cost: Number(response.cost)
+       }
+      newState.unshift(editedResponse); // adds onto the existing state
 
       return newState; // then return it
     }),
