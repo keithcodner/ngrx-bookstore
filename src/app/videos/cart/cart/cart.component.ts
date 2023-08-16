@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/appstate';
 import { Video, VideoCartItems } from '../../store/video';
-import { selectCartVideos } from '../../store/videos.selector';
+import { selectCartVideoById, selectCartVideos } from '../../store/videos.selector';
 import { invokeAddVideoQuantityToVideoCart, invokeRemoveVideoFromVideoCart, invokeRemoveVideoQuantityFromVideoCart, invokeVideoCartFetch } from '../../store/videos.action';
-import { map, reduce } from 'rxjs';
+import { first, map, reduce } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -47,11 +47,42 @@ export class CartComponent {
   }
 
   addQuantity(id:number, qty:number){
-    this.store.dispatch(invokeAddVideoQuantityToVideoCart({id: id, qty: qty}));
+
+    let newQuantity = qty + 1;
+    let videoCartItem$ = this.store.pipe(select(selectCartVideoById(id))).pipe(first());
+
+    videoCartItem$.subscribe((data) => {
+      if(data){
+        let updatedVideoCartItem:VideoCartItems = {
+          ...data,
+          numberOfItems: newQuantity
+        }
+  
+        this.store.dispatch(invokeAddVideoQuantityToVideoCart({id: id, videoCart: updatedVideoCartItem}));
+      }
+    });
+    
   }
 
   removeQuantity(id:number, qty:number){
-    this.store.dispatch(invokeRemoveVideoQuantityFromVideoCart({id: id, qty: qty}));
+    let newQuantity = qty - 1;
+    let videoCartItem$ = this.store.pipe(select(selectCartVideoById(id))).pipe(first());
+
+    if(newQuantity <= 0){
+      this.store.dispatch(invokeRemoveVideoFromVideoCart({id: id}));
+    }else{
+
+      videoCartItem$.subscribe((data) => {
+        if(data){
+          let updatedVideoCartItem:VideoCartItems = {
+            ...data,
+            numberOfItems: newQuantity
+          }
+    
+          this.store.dispatch(invokeRemoveVideoQuantityFromVideoCart({id: id, videoCart: updatedVideoCartItem}));
+        }
+      });
+    }
   }
 
 }

@@ -28,13 +28,17 @@ export const videoCartReducer = createReducer(
 
       return newState; // then return it 
     }),
-    on(invokeAddVideoQuantityToVideoCart, (state, {id, qty}) => {
+    on(invokeAddVideoQuantityToVideoCart, (state, {id, videoCart}) => {
       let newState = state.filter(_ => _.video_id !== id ); //filter the state that we need to update and grab it
+
+      newState.unshift(videoCart); 
 
       return newState; // then return it 
     }),
-    on(invokeRemoveVideoQuantityFromVideoCart, (state, {id, qty}) => {
+    on(invokeRemoveVideoQuantityFromVideoCart, (state, {id, videoCart}) => {
       let newState = state.filter(_ => _.video_id !== id ); //filter the state that we need to update and grab it
+
+      newState.unshift(videoCart); 
       
       return newState; // then return it 
     }),

@@ -77,12 +77,12 @@ export const invokeRemoveVideoFromVideoCart = createAction(
 
 export const invokeAddVideoQuantityToVideoCart = createAction(
     "[Video API] invoke add video qty from cart",
-    props<{id: number, qty: number}>()
+    props<{id: number, videoCart: VideoCartItems}>()
 );
 
 export const invokeRemoveVideoQuantityFromVideoCart = createAction(
     "[Video API] invoke remove video qty from cart",
-    props<{id: number, qty: number}>()
+    props<{id: number, videoCart: VideoCartItems}>()
 );
 
 // export const invokeAddVideoToCartSuccess = createAction(
