@@ -24,20 +24,23 @@ export class CartComponent {
 
   cartVideos$ = this.store.pipe(select(selectCartVideos)); // select videos from the video cart
   cartVideosTotalPrice$ = this.store.pipe(select(selectCartVideos));
+  htmlGrandTotal = 0;
 
   ngOnInit(): void {
 
     this.store.dispatch(invokeVideoCartFetch());
 
-    // each time you use map, you loop down each hierarchy
-    this.cartVideosTotalPrice$.pipe(
+    // each time you use map, you loop down each hierarchy in the object/shape
+    const grandTotal$ = this.cartVideosTotalPrice$.pipe(
       map(
-        (data:VideoCartItems[]) => data.map(
-          (value: VideoCartItems) => {
-            return value.totalPrice
-          })
-        )
-    ).subscribe((data) => console.log(data));
+        x => x.reduce((acc, val) => {
+          let data:number = Number(acc) + Number(val.totalPrice);
+          return data;
+        }, 0)
+      )
+    );
+    
+    grandTotal$.subscribe((data) => this.htmlGrandTotal =  Number(data));
   }
 
 }

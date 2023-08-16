@@ -28,8 +28,6 @@ export class HomeComponent implements OnInit {
 
   videos$ = this.store.pipe(select(selectVideos)); // select data from store
 
-
-
   deleteModal:any;
   addToCartModal:any;
   idToDelete:number = 0;
@@ -50,12 +48,10 @@ export class HomeComponent implements OnInit {
   addToCart(id:number){
 
     // you have to use the .first() function with the forkjoin operator, because it observable needs to end first
-    let selectedAvailableVideo$ = this.store.pipe(select(selectVideoById(id))).pipe(first());
-    let queryCartVideoData$ = this.store.pipe(select(selectCartVideoById(id))).pipe(first());
 
     forkJoin({
-      selectedAvailableVideo: selectedAvailableVideo$,
-      queryCartVideoData: queryCartVideoData$
+      selectedAvailableVideo: this.store.pipe(select(selectVideoById(id))).pipe(first()),
+      queryCartVideoData: this.store.pipe(select(selectCartVideoById(id))).pipe(first())
     }).subscribe((data) => {
       if(data.selectedAvailableVideo != null){ // if there is data
 
@@ -64,7 +60,7 @@ export class HomeComponent implements OnInit {
           cart_id: crypto.randomUUID(),
           video_id: data.selectedAvailableVideo.id,
           numberOfItems: 1,
-          totalPrice: data.selectedAvailableVideo.cost,
+          totalPrice: Number(data.selectedAvailableVideo.cost),
           video: data.selectedAvailableVideo // is of type Video, like in interface
         }
 
@@ -72,24 +68,24 @@ export class HomeComponent implements OnInit {
         if(data.queryCartVideoData != null){ 
 
           let numberOfItemsCount:number = data.queryCartVideoData.numberOfItems;
-          numberOfItemsCount = numberOfItemsCount + 1;
+          numberOfItemsCount = Number(numberOfItemsCount) + 1;
 
-          let totalsCount:number = data.queryCartVideoData.totalPrice;
-          totalsCount = numberOfItemsCount + totalsCount;
+          let totalsPriceCount:number = data.queryCartVideoData.totalPrice;
+          totalsPriceCount = Number(numberOfItemsCount) * Number(data.queryCartVideoData.video.cost);
 
           let videoCartItemDefaultUpdate:VideoCartItems = {
             ...data.queryCartVideoData,
             numberOfItems: numberOfItemsCount,
-            totalPrice: totalsCount
+            totalPrice: totalsPriceCount
           }
 
-          console.log('update quantity of video in cart');
-          console.log(numberOfItemsCount);
+          //console.log('update quantity of video in cart');
+          //console.log(numberOfItemsCount);
 
           this.store.dispatch(invokeUpdateVideoToVideoCartQuantity({ video: videoCartItemDefaultUpdate })); 
           this.addToCartToastTrigger();
         }else{
-          console.log('add video to cart');
+          //console.log('add video to cart');
 
           //if there is no queryCartVideoData data found, then add a new video to the cart
           this.store.dispatch(invokeAddVideoToVideoCart({ video: videoCartItemDefault })); 
@@ -99,38 +95,6 @@ export class HomeComponent implements OnInit {
     });
 
   }
-
-    // selectedAvailableVideo$.subscribe((data) => {
-    //   if(data){
-
-        // let videoCartItemDefault:VideoCartItems = {
-        //   id: crypto.randomUUID(),
-        //   video_id: data.id,
-        //   numberOfItems: 1,
-        //   totalPrice: data.cost,
-        //   video: data // is of type Video, like in interface
-        // }
-
-    //     //this part makes it so that if the same item is added to the cart multiple times, the quantity of the existing object is updated instead of another of the same object being added
-    //     // queryCartVideoData$.subscribe((data2) => {
-
-    //     //   console.log('data2: ' + data2?.video_id);
-    //     //   console.log('data: ' +data.id);
-
-          
-    //     // });
-
-    //     // adds to the cart store
-    //     this.store.dispatch(invokeAddVideoToVideoCart({ video: videoCartItemDefault })); 
-
-
-    //     this.addToCartToastTrigger();
-
-
-        
-    //   }
-    // });
- 
 
   addToCartToastTrigger(){
 

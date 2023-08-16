@@ -206,3 +206,27 @@ let postIds = interval(1).pipe(filter((val) => val > 0),
 import { filter as _filter, find, minBy, sortBy, keyBy, mapValues, cloneDeep } from 'lodash';
 import { asyncScheduler, combineLatest, forkJoin, interval, merge, Observable, of, race, Subscription } from 'rxjs';
 import { debounceTime, filter, first, map, mergeMap, pairwise,skip, startWith, switchMap, takeWhile, tap, take, skipWhile, distinctUntilChanged, observeOn } from 'rxjs/operators';
+
+
+
+// each time you use map, you loop down each hierarchy in the object/shape
+    const grandTotal$ = this.cartVideosTotalPrice$.pipe(
+      map(
+        x => x.reduce((acc, val) => {
+          console.log('Accum: ' + Number(acc));
+          console.log('val: ' +  Number(val.totalPrice));
+          console.log('-------------------------------------------- ID: ' + val.video_id);
+          let data:number = Number(acc) + +Number(val.totalPrice);
+          return data
+        }, 0).toFixed(2)
+      )
+      // map(
+      //   (data:VideoCartItems[]) => data.map(
+      //     (value: VideoCartItems) => {
+      //       return value.totalPrice
+      //     })
+      //   )
+    );
+    
+    grandTotal$.subscribe((data) => this.htmlGrandTotal =  Number(data);
+  }
