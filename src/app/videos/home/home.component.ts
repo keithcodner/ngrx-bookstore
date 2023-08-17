@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { selectCartVideoById, selectVideoById, selectVideos } from '../store/videos.selector';
+import { cartVideoByLatestOrder, selectCartVideoById, selectVideoById, selectVideos } from '../store/videos.selector';
 import { invokeAddVideoToVideoCart, invokeDeleteVideoAPI, invokeUpdateVideoToVideoCartQuantity, invokeVideoAPI } from '../store/videos.action';
 import { selectAppState } from 'src/app/shared/store/app.selector';
 import { Appstate } from 'src/app/shared/store/appstate';
@@ -51,9 +51,17 @@ export class HomeComponent implements OnInit {
 
     forkJoin({
       selectedAvailableVideo: this.store.pipe(select(selectVideoById(id))).pipe(first()),
-      queryCartVideoData: this.store.pipe(select(selectCartVideoById(id))).pipe(first())
+      queryCartVideoData: this.store.pipe(select(selectCartVideoById(id))).pipe(first()),
+      getLatestOrderVideoCartItem: this.store.pipe(select(cartVideoByLatestOrder())).pipe(first())
     }).subscribe((data) => {
       if(data.selectedAvailableVideo != null){ // if there is data
+
+        let latestOrder:number = 0;
+        latestOrder = Number(data.getLatestOrderVideoCartItem?.cart_order) + 1;
+
+        if(data.getLatestOrderVideoCartItem?.cart_order === undefined ){
+           latestOrder = 0;
+        }
 
         //remake video object so cost doesn't have so many trailing/leading zeros
         let innerVideo:Video = {
@@ -61,10 +69,13 @@ export class HomeComponent implements OnInit {
           cost: Number(data.selectedAvailableVideo.cost)
         }
 
+        console.log(latestOrder);
+
         //default video cart template
         let videoCartItemDefault:VideoCartItems = {
           cart_id: crypto.randomUUID(),
           video_id: data.selectedAvailableVideo.id,
+          cart_order: latestOrder,
           numberOfItems: 1,
           totalPrice: Number(data.selectedAvailableVideo.cost),
           video: innerVideo // is of type Video, like in interface
@@ -73,6 +84,9 @@ export class HomeComponent implements OnInit {
         // if data is found in the video cart; update quantity
         if(data.queryCartVideoData != null){ 
 
+          //let cartOrderIncrement:number = data.queryCartVideoData.cart_order;
+          //cartOrderIncrement = Number(cartOrderIncrement) + 1;
+
           let numberOfItemsCount:number = data.queryCartVideoData.numberOfItems;
           numberOfItemsCount = Number(numberOfItemsCount) + 1;
 
@@ -80,7 +94,8 @@ export class HomeComponent implements OnInit {
           totalsPriceCount = Number(numberOfItemsCount) * Number(data.queryCartVideoData.video.cost);
 
           let videoCartItemDefaultUpdate:VideoCartItems = {
-            ...data.queryCartVideoData,
+            ...data.queryCartVideoData, //all previous data, and below are things that changed
+            //cart_order: cartOrderIncrement,
             numberOfItems: numberOfItemsCount,
             totalPrice: totalsPriceCount
           }

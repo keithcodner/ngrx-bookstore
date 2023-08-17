@@ -11,6 +11,7 @@ export interface Video {
 export interface VideoCartItems{
     cart_id: string;
     video_id:number;
+    cart_order:number;
     numberOfItems:number;
     totalPrice: number;
     video:Video;

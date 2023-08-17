@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/appstate';
 import { Video, VideoCartItems } from '../../store/video';
-import { selectCartVideoById, selectCartVideos } from '../../store/videos.selector';
+import { cartVideoCartByOrder, selectCartVideoById, selectCartVideos } from '../../store/videos.selector';
 import { invokeAddVideoQuantityToVideoCart, invokeRemoveVideoFromVideoCart, invokeRemoveVideoQuantityFromVideoCart, invokeVideoCartFetch } from '../../store/videos.action';
-import { first, map, reduce } from 'rxjs';
+import { first, map, of, reduce, take } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -22,28 +22,46 @@ export class CartComponent {
     private appStore:Store<Appstate>,
   ){ }
 
-  cartVideos$ = this.store.pipe(select(selectCartVideos)); // select videos from the video cart
-  cartVideosTotalPrice$ = this.store.pipe(select(selectCartVideos));
-  htmlGrandTotal = 0;
+  cartVideos$ = this.store.pipe(select(cartVideoCartByOrder())); // select videos from the video cart
+  //cartVideos$ = this.store.pipe(select(selectCartVideos)); // select videos from the video cart
+  htmlGrandTotal$ = of({value: 0});
 
   ngOnInit(): void {
 
     this.store.dispatch(invokeVideoCartFetch());
+    this.updateGrandTotal();
+    
+  }
+
+  updateGrandTotal(){
+    let cartVideosTotalPrice$ = this.store.pipe(select(selectCartVideos));
 
     // each time you use map, you loop down each hierarchy in the object/shape
-    const grandTotal$ = this.cartVideosTotalPrice$.pipe(
+    const grandTotal$ = cartVideosTotalPrice$.pipe(
       map(videoCart => videoCart.reduce((acc, val) => {
-          let data:number = Number(acc) + Number(val.totalPrice);
+          let sub_total = (Number(val.video.cost) * Number(val.numberOfItems));
+          let data:number = Number(acc) + sub_total;
           return data;
-        }, 0).toFixed(2)
+        }, 0).toFixed(2) //tofix makes it 2 decimals
       )
     );
-    
-    grandTotal$.subscribe((data) => this.htmlGrandTotal =  Number(data));
+
+    //actions the grand total
+    grandTotal$.subscribe((data) => {
+      this.htmlGrandTotal$.subscribe((total) => {
+        console.log(Number(data));
+        return total.value = Number(data);
+      })
+    });
+
   }
 
   removeFromCart(id:number){
     this.store.dispatch(invokeRemoveVideoFromVideoCart({id: id}));
+  }
+
+  removeAllFromCart(){
+
   }
 
   addQuantity(id:number, qty:number){
@@ -59,6 +77,7 @@ export class CartComponent {
         }
   
         this.store.dispatch(invokeAddVideoQuantityToVideoCart({id: id, videoCart: updatedVideoCartItem}));
+        
       }
     });
     
