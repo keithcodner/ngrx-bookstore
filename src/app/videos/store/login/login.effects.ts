@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { EMPTY, map, switchMap, withLatestFrom } from "rxjs";
-import { VideosService } from "../videos.service";
-import { deleteVideoAPISuccess, invokeAddVideoToVideoCart, invokeDeleteVideoAPI, invokeSaveVideoAPI, invokeUpdateVideoAPI, invokeVideoAPI, saveVideoAPISuccess, updateVideoAPISuccess, videoFetchAPISuccess } from "./videos.action";
+import { VideosService } from "../../videos.service";
+import { deleteVideoAPISuccess, invokeAddVideoToVideoCart, invokeDeleteVideoAPI, invokeSaveVideoAPI, invokeUpdateVideoAPI, invokeVideoAPI, saveVideoAPISuccess, updateVideoAPISuccess, videoFetchAPISuccess } from "./../videos.action";
 import { Appstate } from "src/app/shared/store/appstate";
 import { Store, select } from "@ngrx/store";
 import { setApiStatus } from "src/app/shared/store/app.action";
-import { selectVideos } from "./videos.selector";
+import { selectVideos } from "./../videos.selector";
 
 
 // Only needs to be used when returning an api call from an action

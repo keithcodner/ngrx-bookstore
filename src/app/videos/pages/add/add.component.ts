@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Video } from '../store/video';
+import { Video } from '../../store/video';
 import { Store, select } from '@ngrx/store';
-import { invokeSaveVideoAPI } from '../store/videos.action';
+import { invokeSaveVideoAPI } from '../../store/videos.action';
 import { Appstate } from 'src/app/shared/store/appstate';
 import { selectAppState } from 'src/app/shared/store/app.selector';
 import { Router } from '@angular/router';

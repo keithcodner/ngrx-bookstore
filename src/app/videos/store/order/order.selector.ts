@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { Video, VideoCartItems } from "./video";
+import { Video, VideoCartItems } from "./../video";
 import { map } from "rxjs";
 
 

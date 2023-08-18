@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Video, VideoCartItems } from "./video";
+import { Video, VideoCartItems } from "./../video";
 
 
 //Fetch

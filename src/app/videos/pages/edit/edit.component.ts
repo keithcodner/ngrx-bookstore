@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Video } from '../store/video';
+import { Video } from '../../store/video';
 import { Store, select } from '@ngrx/store';
-import { selectVideoById } from '../store/videos.selector';
+import { selectVideoById } from '../../store/videos.selector';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
-import { invokeUpdateVideoAPI } from '../store/videos.action';
+import { invokeUpdateVideoAPI } from '../../store/videos.action';
 import { Appstate } from 'src/app/shared/store/appstate';
 import { selectAppState } from 'src/app/shared/store/app.selector';
 import { setApiStatus } from 'src/app/shared/store/app.action';

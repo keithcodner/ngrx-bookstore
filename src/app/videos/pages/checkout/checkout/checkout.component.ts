@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/appstate';
-import { Video } from '../../store/video';
-import { selectCartVideos } from '../../store/videos.selector';
-import { invokeVideoCartFetch } from '../../store/videos.action';
+import { Video } from '../../../store/video';
+import { selectCartVideos } from '../../../store/videos.selector';
+import { invokeVideoCartFetch } from '../../../store/videos.action';
 
 @Component({
   selector: 'app-checkout',

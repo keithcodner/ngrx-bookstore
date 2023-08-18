@@ -63,7 +63,7 @@ proposed video cart model example:
 ----------START SERVERS NGRX VIDEO CATELOG-----------
 
 - start express server: '
-' in the directory of  src
+' in the directory of  src: node index.js
 - start web server: ng serve -o in the directory of  src
 
 

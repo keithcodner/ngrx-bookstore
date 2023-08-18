@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { cartVideoByLatestOrder, selectCartVideoById, selectVideoById, selectVideos } from '../store/videos.selector';
-import { invokeAddVideoToVideoCart, invokeDeleteVideoAPI, invokeUpdateVideoToVideoCartQuantity, invokeVideoAPI } from '../store/videos.action';
+import { cartVideoByLatestOrder, selectCartVideoById, selectVideoById, selectVideos } from '../../store/videos.selector';
+import { invokeAddVideoToVideoCart, invokeDeleteVideoAPI, invokeUpdateVideoToVideoCartQuantity, invokeVideoAPI } from '../../store/videos.action';
 import { selectAppState } from 'src/app/shared/store/app.selector';
 import { Appstate } from 'src/app/shared/store/appstate';
 import { setApiStatus } from 'src/app/shared/store/app.action';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Video, VideoCartItems } from '../store/video';
+import { Video, VideoCartItems } from '../../store/video';
 import { filter, first, forkJoin, interval, map, merge, mergeAll, switchMap, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 

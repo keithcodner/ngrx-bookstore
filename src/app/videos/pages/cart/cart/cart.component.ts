@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/appstate';
-import { Video, VideoCartItems } from '../../store/video';
-import { cartVideoCartByOrder, selectCartVideoById, selectCartVideos } from '../../store/videos.selector';
-import { invokeAddVideoQuantityToVideoCart, invokeRemoveVideoFromVideoCart, invokeRemoveVideoQuantityFromVideoCart, invokeVideoCartFetch } from '../../store/videos.action';
+import { Video, VideoCartItems } from '../../../store/video';
+import { cartVideoCartByOrder, selectCartVideoById, selectCartVideos } from '../../../store/videos.selector';
+import { invokeAddVideoQuantityToVideoCart, invokeRemoveVideoFromVideoCart, invokeRemoveVideoQuantityFromVideoCart, invokeVideoCartFetch } from '../../../store/videos.action';
 import { first, map, of, reduce, take } from 'rxjs';
 
 @Component({
