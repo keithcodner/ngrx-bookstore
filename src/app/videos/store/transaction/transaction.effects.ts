@@ -11,7 +11,7 @@ import { selectVideos } from "./../videos.selector";
 
 // Only needs to be used when returning an api call from an action
 @Injectable()
-export class VideosEffects {
+export class TransactionEffects {
     constructor(
         private actions$:Actions,
         private videoService:VideosService,

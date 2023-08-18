@@ -3,7 +3,7 @@ const bodyparser = require('body-parser');
 const cors = require('cors');
 const mysql = require('mysql2');
 const db = require('./app/models');
-const {User, Product} = require('./app/models');
+const {User, Product, Order, Transaction} = require('./app/models');
 
 const app = express();
 app.use(cors());
@@ -73,6 +73,8 @@ app.delete('/videos/:id', async (req, res) => {
     res.send("Video has been deleted");
 
 });
+
+
 
 //get single data
 // app.get('/user/:id', (req, res) => {

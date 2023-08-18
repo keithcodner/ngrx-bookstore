@@ -14,6 +14,9 @@ import { CartComponent } from './pages/cart/cart/cart.component';
 import { CheckoutComponent } from './pages/checkout/checkout/checkout.component';
 import { OrdersComponent } from './pages/orders/orders/orders.component';
 import { LoginComponent } from './pages/login/login/login.component';
+import { LoginEffects } from './store/login/login.effects';
+import { OrderEffects } from './store/order/order.effects';
+import { TransactionEffects } from './store/transaction/transaction.effects';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,7 @@ import { LoginComponent } from './pages/login/login/login.component';
     VideosRoutingModule,
     StoreModule.forFeature("myvideos", videoReducer),
     StoreModule.forFeature("mycartvideos", videoCartReducer),
-    EffectsModule.forFeature([VideosEffects])
+    EffectsModule.forFeature([VideosEffects, LoginEffects, OrderEffects, TransactionEffects])
     
   ]
 })
