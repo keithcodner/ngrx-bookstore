@@ -24,25 +24,23 @@
             </thead>
             <tbody>
                 <!-- start of table row -->
-              <tr *ngFor="let cartVideo of cartVideos$ | async   ">
-                <td class="w-25">
-                  <img src="{{cartVideo.video.img_path}}" class="img-fluid img-thumbnail" alt="Sheep">
-                </td>
-                <td>{{cartVideo.video.video_title}}</td>
-                <td>${{cartVideo.video.cost}}</td>
-                <td class="qty"><input type="text" class="form-control" id="input1" value="{{cartVideo.numberOfItems}}" disabled></td>
-                <td>${{ cartVideo.video.cost * cartVideo.numberOfItems }}</td>
-                <td>
-                  <button type="button" class="btn btn-warning btn-sm p-2" (click)="addQuantity(cartVideo.video_id, cartVideo.numberOfItems)" data-dismiss="modal">+</button>/
-                  <button type="button" class="btn btn-warning btn-sm p-2" (click)="removeQuantity(cartVideo.video_id, cartVideo.numberOfItems)" data-dismiss="modal">-</button>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-danger" (click)="removeFromCart(cartVideo.video_id)" data-dismiss="modal">Remove</button>
-
-                  
-                </td>
-              </tr>
-              <!-- end of table row -->
+                <tr *ngFor="let cartVideo of cartVideos$ | async   ">
+                    <td class="w-25">
+                      <img src="{{ cartVideo.video.img_path }}" class="img-fluid img-thumbnail" alt="Sheep">
+                    </td>
+                    <td>{{ cartVideo.video.video_title }}</td>
+                    <td>${{ cartVideo.video.cost }}</td>
+                    <td class="qty"><input type="text" class="form-control" id="input1" value="{{ cartVideo.numberOfItems }}" disabled></td>
+                    <td>${{ cartVideo.video.cost * cartVideo.numberOfItems }}</td>
+                    <td>
+                      <button type="button" class="btn btn-warning btn-sm p-2" (click)="addQuantity( cartVideo.video_id, cartVideo.numberOfItems )" data-dismiss="modal">+</button>/
+                      <button type="button" class="btn btn-warning btn-sm p-2" (click)="removeQuantity( cartVideo.video_id, cartVideo.numberOfItems )" data-dismiss="modal">-</button>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-danger" (click)="removeFromCart(cartVideo.video_id)" data-dismiss="modal">Remove</button>
+                    </td>
+                </tr>
+                <!-- end of table row -->
             </tbody>
           </table> 
           <div class="d-flex justify-content-end">

@@ -46,7 +46,7 @@ export class CartComponent {
       )
     );
 
-    //actions the grand total
+    //action the grand total
     grandTotal$.subscribe((data) => {
       this.htmlGrandTotal$.subscribe((total) => {
         console.log(Number(data));
@@ -90,7 +90,6 @@ export class CartComponent {
     if(newQuantity <= 0){
       this.store.dispatch(invokeRemoveVideoFromVideoCart({id: id}));
     }else{
-
       videoCartItem$.subscribe((data) => {
         if(data){
           let updatedVideoCartItem:VideoCartItems = {

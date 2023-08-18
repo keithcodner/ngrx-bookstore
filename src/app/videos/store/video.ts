@@ -17,7 +17,6 @@ export interface VideoCartItems{
     video:Video;
 }
 
-
 export interface Order {
     id: number;
     user_id: number;
@@ -46,10 +45,10 @@ export interface User {
     username: string;
     email: string;
     password: string;
+    token: string;
     other: string;
     created_at: Date;
 }
-
 
 export interface VideoState{
     videos: Video[]

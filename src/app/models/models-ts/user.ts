@@ -24,6 +24,10 @@ export const User = sequelize.define('User', {
         type: DataTypes.STRING(50),
         allowNull: true
       },
+      token: {
+        type: DataTypes.STRING(500),
+        allowNull: true
+      },
       other: {
         type: DataTypes.STRING(50),
         allowNull: true

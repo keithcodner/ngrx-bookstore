@@ -6,6 +6,7 @@ import { EditComponent } from './edit/edit.component';
 import { CartComponent } from './cart/cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout/checkout.component';
 import { OrdersComponent } from './orders/orders/orders.component';
+import { LoginComponent } from './login/login/login.component';
 
 const routes: Routes = [
   { path:'', component:HomeComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path:'cartRemoveById/:id', component:CartComponent },
   { path:'orders', component:OrdersComponent },
   { path:'orderGet', component:OrdersComponent },
+  { path:'login', component:LoginComponent },
   
   
 ];

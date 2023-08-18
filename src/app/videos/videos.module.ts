@@ -13,6 +13,7 @@ import { EditComponent } from './edit/edit.component';
 import { CartComponent } from './cart/cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout/checkout.component';
 import { OrdersComponent } from './orders/orders/orders.component';
+import { LoginComponent } from './login/login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { OrdersComponent } from './orders/orders/orders.component';
     EditComponent,
     CartComponent,
     CheckoutComponent,
-    OrdersComponent
+    OrdersComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
