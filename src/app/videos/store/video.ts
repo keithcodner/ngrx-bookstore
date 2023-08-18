@@ -44,7 +44,6 @@ export interface User {
     name: string;
     username: string;
     email: string;
-    password: string;
     token: string;
     other: string;
     created_at: Date;

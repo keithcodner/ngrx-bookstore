@@ -9,6 +9,8 @@ const app = express();
 app.use(cors());
 app.use(bodyparser.json());
 
+// ------------ Manage Video Products Routes ------------------
+
 //all video data
 app.get('/videos', async(req, res) => {
     //Product.findAll({ where: { video_title: "Meet Me 24"}})
@@ -74,14 +76,53 @@ app.delete('/videos/:id', async (req, res) => {
 
 });
 
+// ------------ Manage Login Products Routes ------------------
 
+// login check
+app.post('/auth', async (req, res) => {
+
+    let userResponse = {
+        id: "",
+        name: "",
+        username: "",
+        email: "",
+        token: "",
+        other: "",
+        created_at: "",
+        status: "false",
+    };
+
+    await User.findAll({ where: { username: req.body.username,  password: req.body.password}})
+    .then((user) => {
+        userResponse.id = user[0].id;
+        userResponse.name = user[0].name;
+        userResponse.username = user[0].username;
+        userResponse.email = user[0].email;
+        userResponse.token = user[0].token;
+        userResponse.other = user[0].other;
+        userResponse.created_at = user[0].created_at;
+        userResponse.status = "successful_login";
+        res.send(userResponse);
+    })
+    .catch((err) => {
+        console.log(err);
+        userResponse.token = "false";
+        userResponse.status = "false";
+        res.send(userResponse);
+    });
+
+});
+
+
+// ------------ Manage Transaction Routes ------------------
+
+
+// ------------ Manage Order Routes ------------------
 
 //get single data
 // app.get('/user/:id', (req, res) => {
     
 // });
-
-
 
 db.sequelize.sync().then((req) => {
     app.listen(3000, ()=>{
