@@ -5,7 +5,7 @@ import { invokeLoginAPI, loginFetchAPIFail, loginFetchAPISuccess } from "./login
 export const initialState: ReadonlyArray<User> = []; //instantiate avaiable videos from api into available video array
 export const userReducer = createReducer(
   initialState, // the initial state of the cart will be empty
-    on(loginFetchAPISuccess, (_state, {payload}) => {
+    on(loginFetchAPISuccess, (state, {payload}) => {
       return payload;
     }),
     on(loginFetchAPIFail, (state, {payload}) => {

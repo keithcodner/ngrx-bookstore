@@ -17,6 +17,7 @@ import { LoginComponent } from './pages/login/login/login.component';
 import { LoginEffects } from './store/login/login.effects';
 import { OrderEffects } from './store/order/order.effects';
 import { TransactionEffects } from './store/transaction/transaction.effects';
+import { userReducer } from './store/login/login.reducer';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { TransactionEffects } from './store/transaction/transaction.effects';
     VideosRoutingModule,
     StoreModule.forFeature("myvideos", videoReducer),
     StoreModule.forFeature("mycartvideos", videoCartReducer),
+    StoreModule.forFeature("myuser", userReducer),
     EffectsModule.forFeature([VideosEffects, LoginEffects, OrderEffects, TransactionEffects])
     
   ]

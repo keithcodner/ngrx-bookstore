@@ -1,11 +1,10 @@
 import { createAction, props } from "@ngrx/store";
-import { User, Video, VideoCartItems } from "./../video";
-
+import { User,  userLogin } from "./../video";
 
 //Fetch
 export const invokeLoginAPI  = createAction(
-    "[Login API] invoke video Fetch API"
-    
+    "[Login API] invoke video Fetch API",
+    props<{ payload: userLogin }>()
 );
 
 export const loginFetchAPISuccess  = createAction(

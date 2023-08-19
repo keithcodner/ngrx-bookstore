@@ -49,6 +49,12 @@ export interface User {
     created_at: Date;
 }
 
+export interface userLogin {
+    username: string;
+    password: string;
+  }
+
+
 export interface VideoState{
     videos: Video[]
 }
