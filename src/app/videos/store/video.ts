@@ -49,7 +49,7 @@ export interface User {
     created_at: Date;
 }
 
-export interface userLogin {
+export interface UserLogin {
     username: string;
     password: string;
   }

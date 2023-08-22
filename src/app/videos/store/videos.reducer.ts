@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { Video, Order, Transaction, User, VideoCartItems } from "./video";
+import { Video, VideoCartItems } from "./video";
 import { deleteVideoAPISuccess, invokeAddVideoQuantityToVideoCart, invokeAddVideoToVideoCart, invokeRemoveVideoFromVideoCart, invokeRemoveVideoQuantityFromVideoCart, invokeUpdateVideoToVideoCartQuantity, saveVideoAPISuccess, updateVideoAPISuccess, videoCartFetchSuccess, videoFetchAPISuccess } from "./videos.action";
 
 export const initialState: ReadonlyArray<Video> = []; //instantiate avaiable videos from api into available video array

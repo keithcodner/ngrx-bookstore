@@ -9,7 +9,6 @@ import { selectVideos } from "./../videos.selector";
 import { invokeLoginAPI, loginFetchAPISuccess } from "./login.action";
 import { invokeSaveVideoAPI } from "../videos.action";
 
-
 // Only needs to be used when returning an api call from an action
 @Injectable()
 export class LoginEffects {
@@ -30,7 +29,7 @@ export class LoginEffects {
                     .pipe(
                         map((data) => {
                             this.appStore.dispatch(setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success'}}));
-                            return loginFetchAPISuccess({payload: data});
+                            return loginFetchAPISuccess({response: data});
                         })
                     );
                 })

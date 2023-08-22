@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/appstate';
 import { invokeLoginAPI } from 'src/app/videos/store/login/login.action';
+import { selectUser } from 'src/app/videos/store/login/login.selector';
 import { User } from 'src/app/videos/store/video';
 
 @Component({
@@ -24,18 +25,8 @@ export class LoginComponent {
   ngOnInit(): void {}
 
   login(){
-    this.store.dispatch(invokeLoginAPI({payload:{...this.userLogin}})); // save all videos to store
+    this.store.dispatch(invokeLoginAPI({payload:{...this.userLogin}}));
 
-    // let appState$ = this.appStore.pipe(select(selectAppState));
-    // appState$.subscribe((data) => {
-    //   if(data.apiStatus === 'success'){
-    //     this.appStore.dispatch(
-    //       setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success'}})
-    //     );
-    //     this.router.navigate(['/'])
-    //   }
-    // });
-  
   }
 
 }

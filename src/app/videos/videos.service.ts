@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User, Video } from './store/video';
+import { User, UserLogin, Video } from './store/video';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +27,8 @@ export class VideosService {
   }
 
   //---------------------- Auth End points ----------------------
-  login(payload:User){
-    return this.http.post<User[]>(`http://localhost:3000/auth`, payload);
+  login(payload:UserLogin){
+    return this.http.post<User>(`http://localhost:3000/auth`, payload);
   }
 
 
@@ -37,4 +37,6 @@ export class VideosService {
   //---------------------- Checkout Endpoints ----------------------
 
   //---------------------- Order Endpoints ----------------------
+
+  //---------------------- Functions----------------------
 }

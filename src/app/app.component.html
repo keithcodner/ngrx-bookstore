@@ -11,13 +11,9 @@
     </div>
   </div>
 
-  <!-- <button type="button" class="btn btn-success ml-4" data-toggle="modal" data-target="#cartModal">
-    View Cart
-  </button>   -->
-  <!-- <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-warning my-2 my-sm-0" >Search</button>
-  </form> -->
+  <span class="navbar-text" ng-if="(user$ | async)?.value!== '' ">
+     {{ '' + (user$ | async)?.value}}
+  </span>
   
 </nav>
 <router-outlet></router-outlet>

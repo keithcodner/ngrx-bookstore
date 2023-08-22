@@ -5,6 +5,7 @@ import { Appstate } from 'src/app/shared/store/appstate';
 import { Video } from '../../../store/video';
 import { selectCartVideos } from '../../../store/videos.selector';
 import { invokeVideoCartFetch } from '../../../store/videos.action';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -21,7 +22,7 @@ export class CheckoutComponent {
   ){ }
 
   cartVideos$ = this.store.pipe(select(selectCartVideos)); // select videos from the video cart
-
+  htmlGrandTotal$ = of({value: 0});
 
 
   ngOnInit(): void {
