@@ -27,7 +27,6 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.store.dispatch(invokeUserDetailsFetchAPI()); //first user call
-
     let loggedInUser$ = this.store.pipe(select(selectUser));
 
     this.user$.subscribe((data) => {
