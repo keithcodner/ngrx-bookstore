@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User, UserLogin, Video } from './store/video';
+import { Order, Transaction, User, UserLogin, Video } from './store/video';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +36,31 @@ export class VideosService {
 
   //---------------------- Checkout Endpoints ----------------------
 
+  //---------------------- Checkout Endpoints ----------------------
+  getAllTransaction(){
+    return this.http.get<Transaction[]>("http://localhost:3000/transaction");
+  }
+
+  getTransactionsById(id:any){
+    return this.http.post<Transaction[]>(`http://localhost:3000/transactionById/`, id);
+  }
+
+  saveTransaction(payload:Video){
+    return this.http.post<Video>("http://localhost:3000/transaction", payload);
+  }
+
   //---------------------- Order Endpoints ----------------------
+  getAllOrder(){
+    return this.http.get<Order[]>("http://localhost:3000/order");
+  }
+
+  getOrderById(id:number){
+    return this.http.post<Order[]>("http://localhost:3000/orderById", id);
+  }
+
+  saveOrder(payload:Order){
+    return this.http.post<Order>("http://localhost:3000/order", payload);
+  }
 
   //---------------------- Functions----------------------
 }

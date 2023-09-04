@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     trnsx_id: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(500),
       allowNull: true
     },
     video_title: {

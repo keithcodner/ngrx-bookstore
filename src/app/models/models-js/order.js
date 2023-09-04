@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     trans_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(500),
       allowNull: true
     },
     order_num: {

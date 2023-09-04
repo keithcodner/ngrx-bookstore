@@ -81,11 +81,14 @@ export class CheckoutComponent {
 
     combineLatest({
       count: this.htmlCartCount$.pipe(first()),
+      grandTotal: this.htmlGrandTotal$.pipe(first()),
       user: this.selectUser$.pipe(first()),
       cart: this.cartVideos$,
     }).subscribe((data) => {
 
-      console.log(data.cart);
+      let getGrandTotal = data.grandTotal.value;
+
+      console.log(getGrandTotal);
 
       if(data.user.length === 0){
         return alert('You are not logged in. Please log in first before you purchase.');
@@ -94,8 +97,9 @@ export class CheckoutComponent {
       if(data.count.value > 0){
         //alert('you have ' + count.value + ' items in your cart');
         
-
         //parse the cart; for data to be sent
+
+
         //transmit the data
         //create order first
         //create transaction; then add order num to tranx

@@ -116,8 +116,76 @@ app.post('/auth', async (req, res) => {
 
 // ------------ Manage Transaction Routes ------------------
 
+//get transaction
+app.get('/transaction', async(req, res) => {
+    //Product.findAll({ where: { video_title: "Meet Me 24"}})
+    await Transaction.findAll()
+        .then((transaction) => {
+            res.send(transaction);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
+
+//get some transactios
+app.get('/transactionById', async(req, res) => {
+    await Transaction.findAll({ where: { trnsx_id: req.body.id}})
+    //await Transaction.findAll()
+        .then((transaction) => {
+            res.send(transaction);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
+
+//insert transaction
+app.post('/transaction', async(req, res) => {
+ 
+    await Transaction.create(req.body)
+    .catch((err) => {
+        console.log(err);
+    });
+
+    res.send("Transaction has been inserted");
+});
 
 // ------------ Manage Order Routes ------------------
+
+//get order
+app.get('/order', async(req, res) => {
+    //Product.findAll({ where: { video_title: "Meet Me 24"}})
+    await Order.findAll()
+        .then((order) => {
+            res.send(order);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
+
+//get one order
+app.get('/orderById', async(req, res) => {
+    await Order.findAll({ where: { id: req.body.id}})
+    //await Order.findAll()
+        .then((order) => {
+            res.send(order);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
+//inseert order
+app.post('/order', async(req, res) => {
+   
+    await Order.create(req.body)
+    .catch((err) => {
+        console.log(err);
+    });
+
+    res.send("Order has been inserted");
+});
 
 //get single data
 // app.get('/user/:id', (req, res) => {
