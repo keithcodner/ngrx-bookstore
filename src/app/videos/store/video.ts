@@ -8,6 +8,11 @@ export interface Video {
     cost: number;
 }
 
+export interface CartCountItems{
+    cartCount: number,
+    cartGrandTotal:number,
+}
+
 export interface VideoCartItems{
     cart_id: string;
     video_id:number;

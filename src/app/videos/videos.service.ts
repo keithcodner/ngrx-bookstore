@@ -1,13 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Order, Transaction, User, UserLogin, Video } from './store/video';
+import { CartCountItems, Order, Transaction, User, UserLogin, Video, VideoCartItems } from './store/video';
+import { combineLatest, count, first, forkJoin, map, merge, mergeAll, Observable, of, reduce, switchMap, take } from 'rxjs';
+import { selectCartVideos } from './store/videos.selector';
+import { invokeVideoCartFetch } from './store/videos.action';
+import { Store, select, MemoizedSelector, DefaultProjectorFn } from '@ngrx/store';
+import { selectUser } from './store/login/login.selector';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Appstate } from '../shared/store/appstate';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideosService {
 
-  constructor(private http:HttpClient) { }
+  constructor(
+    private store:Store, 
+    private http:HttpClient,
+    private route:ActivatedRoute,
+    private router:Router,
+    private appStore:Store<Appstate>,
+  ) { }
 
   //----------------------  Home Endpoints ----------------------
   get(){
@@ -31,7 +44,6 @@ export class VideosService {
     return this.http.post<User>(`http://localhost:3000/auth`, payload);
   }
 
-
   //---------------------- Cart End points ----------------------
 
   //---------------------- Checkout Endpoints ----------------------
@@ -54,7 +66,7 @@ export class VideosService {
     return this.http.get<Order[]>("http://localhost:3000/order");
   }
 
-  getOrderById(id:number){
+  getOrderById(id:any){
     return this.http.post<Order[]>("http://localhost:3000/orderById", id);
   }
 
@@ -63,4 +75,46 @@ export class VideosService {
   }
 
   //---------------------- Functions----------------------
+  updateMainGrandTotal(
+    selectCartVideos:MemoizedSelector<object, VideoCartItems[], DefaultProjectorFn<VideoCartItems[]>> 
+  ):Observable<CartCountItems>{
+    let cartVideosTotalPrice$ = this.store.pipe(select(selectCartVideos));
+
+    let totalCartItemLength = 0;
+    let grandTotalValue = 0 ;
+
+    let cartCountItem: CartCountItems = {
+      cartCount: 0,
+      cartGrandTotal:0,
+    };
+
+    // each time you use map, you loop down each hierarchy in the object/shape
+    let grandTotal$ = cartVideosTotalPrice$.pipe(
+      map(videoCart => videoCart.reduce((acc, val) => {
+          let sub_total = (Number(val.video.cost) * Number(val.numberOfItems));
+          let data:number = Number(acc) + sub_total;
+          return data;
+        }, 0).toFixed(2) //tofix makes it 2 decimals
+      )
+    );
+
+    //get cart count
+    let cartCount$ = cartVideosTotalPrice$.pipe(map(videoCartItem =>  {
+        return videoCartItem.length;
+      })
+    );
+
+    //action the grand total
+    grandTotal$.subscribe((data) => {
+      cartCountItem.cartGrandTotal = Number(data);
+    });
+
+    //action keep count of cart items
+    cartCount$.subscribe((data) => {
+      cartCountItem.cartCount = Number(data);
+    });
+    
+    return of(cartCountItem);
+
+  }
 }

@@ -110,7 +110,6 @@ app.post('/auth', async (req, res) => {
         userResponse.status = "false";
         res.send(userResponse);
     });
-
 });
 
 
@@ -128,16 +127,16 @@ app.get('/transaction', async(req, res) => {
         })
 });
 
-//get some transactios
-app.get('/transactionById', async(req, res) => {
+//get some transactios by id
+app.post('/transactionById', async(req, res) => {
     await Transaction.findAll({ where: { trnsx_id: req.body.id}})
     //await Transaction.findAll()
-        .then((transaction) => {
-            res.send(transaction);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    .then((transaction) => {
+        res.send(transaction);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 });
 
 //insert transaction
@@ -165,18 +164,19 @@ app.get('/order', async(req, res) => {
         })
 });
 
-//get one order
-app.get('/orderById', async(req, res) => {
+//get one order by id
+app.post('/orderById', async(req, res) => {
     await Order.findAll({ where: { id: req.body.id}})
     //await Order.findAll()
-        .then((order) => {
-            res.send(order);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    .then((order) => {
+        res.send(order);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 });
-//inseert order
+
+//insert order
 app.post('/order', async(req, res) => {
    
     await Order.create(req.body)

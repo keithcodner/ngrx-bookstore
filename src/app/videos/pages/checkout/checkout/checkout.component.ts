@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/appstate';
-import { Video } from '../../../store/video';
+import { CartCountItems, Video } from '../../../store/video';
 import { selectCartVideos } from '../../../store/videos.selector';
 import { invokeVideoCartFetch } from '../../../store/videos.action';
 import { combineLatest, count, first, forkJoin, map, merge, mergeAll, of, reduce, switchMap, take } from 'rxjs';
 import { selectUser } from 'src/app/videos/store/login/login.selector';
+import { VideosService } from 'src/app/videos/videos.service';
 
 @Component({
   selector: 'app-checkout',
@@ -20,10 +21,12 @@ export class CheckoutComponent {
     private route:ActivatedRoute,
     private router:Router,
     private appStore:Store<Appstate>,
+    private videoService:VideosService,
   ){ }
 
   cartVideos$ = this.store.pipe(select(selectCartVideos)); // select videos from the video cart
   selectUser$ = this.store.pipe(select(selectUser));
+  totals$ = of({cartCount:0, cartGrandTotal: 0} as CartCountItems);
 
   htmlGrandTotal$ = of({value: 0});
   htmlCartCount$ = of({value: 0});
@@ -39,6 +42,12 @@ export class CheckoutComponent {
 
     this.store.dispatch(invokeVideoCartFetch());
     this.updateGrandTotal();
+  }
+
+  updateSiteGrandTotal(){
+   this.totals$ = this.videoService.updateMainGrandTotal(selectCartVideos);
+    
+   
   }
 
   updateGrandTotal(){
