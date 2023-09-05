@@ -23,15 +23,12 @@ export interface VideoCartItems{
 }
 
 export interface Order {
-    id: number;
     user_id: number;
-    prod_id: number;
-    trans_id: number;
     order_num: string;
     details: string;
-    total: string;
-    created_at: Date;
-    updated_at: Date;
+    total: number;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface Transaction {

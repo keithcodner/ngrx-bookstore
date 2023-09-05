@@ -1,91 +1,54 @@
 import { createAction, props } from "@ngrx/store";
-import { Video, VideoCartItems } from "./../video";
+import { Order } from "./../video";
 
 
 //Fetch
-export const invokeVideoAPI  = createAction(
-    "[Video API] invoke video Fetch API"
+export const invokeOrderAPI  = createAction(
+    "[Order API] invoke Order Fetch API"
 );
 
-export const videoFetchAPISuccess  = createAction(
-    "[Video API] video Fetch API success",
-    props<{allVideos: Video[]}>()
+export const orderFetchAPISuccess  = createAction(
+    "[Order API] Order Fetch API success",
+    props<{allOrders: Order[]}>()
 );
 
 //Save
-export const invokeSaveVideoAPI = createAction(
-    "[Video API] invoke save video API ",
-    props<{payload: Video}>()
+export const invokeSaveOrderAPI = createAction(
+    "[Order API] invoke save Order API ",
+    props<{payload: Order}>()
 );
 
-export const saveVideoAPISuccess = createAction(
-    "[Video API] invoke save video API success ",
-    props<{response: Video}>()
+export const saveOrderAPISuccess = createAction(
+    "[Order API] invoke save Order API success ",
+    props<{response: Order}>()
 );
 
 //Update
-export const invokeUpdateVideoAPI = createAction(
-    "[Video API] invoke update video API ",
-    props<{payload: Video}>()
+export const invokeUpdateOrderAPI = createAction(
+    "[Order API] invoke update Order API ",
+    props<{payload: Order}>()
 );
 
-export const updateVideoAPISuccess = createAction(
-    "[Video API] invoke update video API success ",
-    props<{response: Video}>()
+export const updateOrderAPISuccess = createAction(
+    "[Order API] invoke update Order API success ",
+    props<{response: Order}>()
 );
 
 //Delete
-export const invokeDeleteVideoAPI = createAction(
-    "[Video API] invoke delete video API ",
+export const invokeDeleteOrderAPI = createAction(
+    "[Order API] invoke delete Order API ",
     props<{id: number}>()
 );
 
-export const deleteVideoAPISuccess = createAction(
-    "[Video API] invoke delete video API success ",
+export const deleteOrderAPISuccess = createAction(
+    "[Order API] invoke delete Order API success ",
     props<{id: number}>()
 );
 
 //--------------- CART SECTION ------------------
 
 //Fetch Cart
-export const invokeVideoCartFetch = createAction(
-    "[Video API] invoke video cart Fetch API"
+export const invokeOrderCartFetch = createAction(
+    "[Order API] invoke Order cart Fetch API"
 );
 
-export const videoCartFetchSuccess  = createAction(
-    "[Video API] video Fetch cart API success",
-    props<{allCartVideos: VideoCartItems[]}>()
-);
-
-//Add To Cart
-export const invokeAddVideoToVideoCart = createAction(
-    "[Video API] invoke add video to cart",
-    props<{video: VideoCartItems}>()
-);
-
-//Update Cart
-export const invokeUpdateVideoToVideoCartQuantity = createAction(
-    "[Video API] invoke update video to cart quantity",
-    props<{video: VideoCartItems}>()
-);
-
-//RemoveFrom Cart
-export const invokeRemoveVideoFromVideoCart = createAction(
-    "[Video API] invoke remove video from cart",
-    props<{id: number}>()
-);
-
-export const invokeAddVideoQuantityToVideoCart = createAction(
-    "[Video API] invoke add video qty from cart",
-    props<{id: number, videoCart: VideoCartItems}>()
-);
-
-export const invokeRemoveVideoQuantityFromVideoCart = createAction(
-    "[Video API] invoke remove video qty from cart",
-    props<{id: number, videoCart: VideoCartItems}>()
-);
-
-// export const invokeAddVideoToCartSuccess = createAction(
-//     "[Video API] invoke add video to cart",
-//     props<{payload: Video}>()
-// );

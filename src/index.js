@@ -184,7 +184,7 @@ app.post('/order', async(req, res) => {
         console.log(err);
     });
 
-    res.send("Order has been inserted");
+    res.send({message: "Order has been inserted"});
 });
 
 //get single data

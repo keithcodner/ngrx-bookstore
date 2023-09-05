@@ -75,14 +75,11 @@ export class VideosService {
   }
 
   //---------------------- Functions----------------------
+  //after the function colon, is the function type, and its the type of whats (and must match) returned ...which is an observable of type cartcountitems
   updateMainGrandTotal(
     selectCartVideos:MemoizedSelector<object, VideoCartItems[], DefaultProjectorFn<VideoCartItems[]>> 
   ):Observable<CartCountItems>{
     let cartVideosTotalPrice$ = this.store.pipe(select(selectCartVideos));
-
-    let totalCartItemLength = 0;
-    let grandTotalValue = 0 ;
-
     let cartCountItem: CartCountItems = {
       cartCount: 0,
       cartGrandTotal:0,
@@ -118,5 +115,5 @@ export class VideosService {
 
   }
 
-  
+
 }

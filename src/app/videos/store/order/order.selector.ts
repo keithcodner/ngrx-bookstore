@@ -1,65 +1,65 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { Video, VideoCartItems } from "./../video";
+import { Order } from "./../video";
 import { map } from "rxjs";
 
 
 //This thing grabs things from the store
-export const selectVideos = createFeatureSelector<Video[]>("myvideos");
-export const selectCartVideos = createFeatureSelector<VideoCartItems[]>("mycartvideos");
+export const selectOrders = createFeatureSelector<Order[]>("myOrders");
+export const selectCartOrders = createFeatureSelector<Order[]>("mycartOrders");
 
 
-//select cart video by id
-export const cartVideoCartByOrder = () => {
-    return createSelector(selectCartVideos, (videos: VideoCartItems[]) => {
+//select cart Order by id
+// export const cartOrderCartByOrder = () => {
+//     return createSelector(selectCartOrders, (Orders: Order[]) => {
             
-            //slice creates copy of array before sorting
-            let sortedVideos = videos.slice().sort((a, b) => a.video_id - b.video_id);
+//             //slice creates copy of array before sorting
+//             let sortedOrders = Orders.slice().sort((a, b) => a.Order_id - b.Order_id);
 
-            return sortedVideos;
-        }
-    )
-}
+//             return sortedOrders;
+//         }
+//     )
+// }
 
-//select cart video by id
-export const cartVideoByLatestOrder = () => {
-    return createSelector(selectCartVideos, (videos: VideoCartItems[]) => {
-            const amounts = videos.map((a) => a.cart_order)
-            const highestAmount = Math.max(...amounts);     
-            var videoById = videos.filter( _ => _.cart_order == highestAmount);
+//select cart Order by id
+// export const cartOrderByLatestOrder = () => {
+//     return createSelector(selectCartOrders, (Orders: Order[]) => {
+//             const amounts = Orders.map((a) => a)
+//             const highestAmount = Math.max(...amounts);     
+//             var OrderById = Orders.filter( _ => _.cart_order == highestAmount);
 
-            if(videoById.length == 0){
-                return null;
-            }
+//             if(OrderById.length == 0){
+//                 return null;
+//             }
 
-            return videoById[0];
-        }
-    )
-}
+//             return OrderById[0];
+//         }
+//     )
+// }
 
-//select cart video by id
-export const selectCartVideoById = (videoID:number) => {
-    return createSelector(selectCartVideos, (videos: VideoCartItems[]) => {
-            var videoById = videos.filter( _ => _.video_id == videoID);
+//select cart Order by id
+// export const selectCartOrderById = (OrderID:number) => {
+//     return createSelector(selectCartOrders, (Orders: OrderCartItems[]) => {
+//             var OrderById = Orders.filter( _ => _.Order_id == OrderID);
 
-            if(videoById.length == 0){
-                return null;
-            }
+//             if(OrderById.length == 0){
+//                 return null;
+//             }
 
-            return videoById[0];
-        }
-    )
-}
+//             return OrderById[0];
+//         }
+//     )
+// }
 
 //this filters the things it selects
-export const selectVideoById = (videoID:number) => {
-    return createSelector(selectVideos, (videos: Video[]) => {
-            var videoById = videos.filter( _ => _.id == videoID);
+export const selectOrderById = (OrderID:number) => {
+    return createSelector(selectOrders, (Orders: Order[]) => {
+            var OrderById = Orders.filter( _ => _.id == OrderID);
 
-            if(videoById.length == 0){
+            if(OrderById.length == 0){
                 return null;
             }
 
-            return videoById[0];
+            return OrderById[0];
         }
     )
 }

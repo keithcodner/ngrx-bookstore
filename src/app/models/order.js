@@ -11,14 +11,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    prod_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    trans_id: {
-      type: DataTypes.STRING(500),
-      allowNull: true
-    },
     order_num: {
       type: DataTypes.STRING(50),
       allowNull: true

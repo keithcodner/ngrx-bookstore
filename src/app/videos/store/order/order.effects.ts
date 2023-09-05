@@ -7,6 +7,7 @@ import { Appstate } from "src/app/shared/store/appstate";
 import { Store, select } from "@ngrx/store";
 import { setApiStatus } from "src/app/shared/store/app.action";
 import { selectVideos } from "./../videos.selector";
+import { invokeSaveOrderAPI, saveOrderAPISuccess } from "./order.action";
 
 
 // Only needs to be used when returning an api call from an action
@@ -38,23 +39,17 @@ export class OrderEffects {
             )
         );
 
-        // addVideoToVideoCart$ = createEffect(() => 
-        //     // this.actions$.pipe(
-        //     //     ofType(invokeAddVideoToCart),
-        //     // )
-        // );
-
-        saveNewVideo$ = createEffect(() =>
+        saveNewOrder$ = createEffect(() =>
             this.actions$.pipe(
-                ofType(invokeSaveVideoAPI),
+                ofType(invokeSaveOrderAPI),
                 switchMap((action) => {
                     this.appStore.dispatch(setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: ''}}))
                     return this.videoService
-                    .saveVideo(action.payload)
+                    .saveOrder(action.payload)
                     .pipe(
                         map((data) => {
                             this.appStore.dispatch(setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success'}}))
-                            return saveVideoAPISuccess({response: data})
+                            return saveOrderAPISuccess({response: data})
                         })
                     )
                 })
