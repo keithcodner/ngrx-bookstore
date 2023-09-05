@@ -28,8 +28,6 @@ export class CheckoutComponent {
   selectUser$ = this.store.pipe(select(selectUser));
   totals$ = of({cartCount:0, cartGrandTotal: 0} as CartCountItems);
 
-  htmlGrandTotal$ = of({value: 0});
-  htmlCartCount$ = of({value: 0});
   htmlCardDetails = {
     cardName: 'John Bob McGee',
     creditCardNum: '289971114455222',
@@ -41,61 +39,26 @@ export class CheckoutComponent {
   ngOnInit(): void {
 
     this.store.dispatch(invokeVideoCartFetch());
-    this.updateGrandTotal();
+    this.updateSiteGrandTotal();
   }
 
   updateSiteGrandTotal(){
    this.totals$ = this.videoService.updateMainGrandTotal(selectCartVideos);
     
-   
+   console.log(this.totals$);
   }
 
-  updateGrandTotal(){
-    let cartVideosTotalPrice$ = this.store.pipe(select(selectCartVideos));
-    
-    // each time you use map, you loop down each hierarchy in the object/shape
-    let grandTotal$ = cartVideosTotalPrice$.pipe(
-      map(videoCart => videoCart.reduce((acc, val) => {
-          let sub_total = (Number(val.video.cost) * Number(val.numberOfItems));
-          let data:number = Number(acc) + sub_total;
-          return data;
-        }, 0).toFixed(2) //tofix makes it 2 decimals
-      )
-    );
-
-    //get cart count
-    let cartCount$ = cartVideosTotalPrice$.pipe(map(videoCartItem =>  {
-        return videoCartItem.length;
-      })
-    );
-
-    //action the grand total
-    grandTotal$.subscribe((data) => {
-      this.htmlGrandTotal$.subscribe((total) => {
-        console.log(Number(data));
-        return total.value = Number(data);
-      })
-    });
-
-    //action keep count of cart items
-    cartCount$.subscribe((data) => {
-      this.htmlCartCount$.subscribe((count) => {
-        return count.value = Number(data);
-      })
-    });
-
-  }
+  
 
   purchase(){
 
     combineLatest({
-      count: this.htmlCartCount$.pipe(first()),
-      grandTotal: this.htmlGrandTotal$.pipe(first()),
+      count: this.totals$.pipe(first()),
       user: this.selectUser$.pipe(first()),
       cart: this.cartVideos$,
     }).subscribe((data) => {
 
-      let getGrandTotal = data.grandTotal.value;
+      let getGrandTotal = data.count.cartGrandTotal;
 
       console.log(getGrandTotal);
 
@@ -103,7 +66,7 @@ export class CheckoutComponent {
         return alert('You are not logged in. Please log in first before you purchase.');
       }
 
-      if(data.count.value > 0){
+      if(data.count.cartCount > 0){
         //alert('you have ' + count.value + ' items in your cart');
         
         //parse the cart; for data to be sent
