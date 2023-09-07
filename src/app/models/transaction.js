@@ -26,6 +26,14 @@ module.exports = function(sequelize, DataTypes) {
     video_title: {
       type: DataTypes.STRING(255),
       allowNull: true
+    },
+    unit_price: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    count: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,

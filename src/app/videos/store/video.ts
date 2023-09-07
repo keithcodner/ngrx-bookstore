@@ -32,13 +32,15 @@ export interface Order {
 }
 
 export interface Transaction {
-    id: number;
     user_id: number;
     product_id: number;
     order_num: string;
-    trans_id: string;
+    trnsx_id: string;
     video_title: string;
-    created_at: Date;
+    unit_price:number;
+    count:number;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface User {

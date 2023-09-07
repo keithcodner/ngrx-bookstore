@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/appstate';
-import { CartCountItems, Order, Video } from '../../../store/video';
+import { CartCountItems, Order, Transaction } from '../../../store/video';
 import { selectCartVideos } from '../../../store/videos.selector';
 import { invokeVideoCartFetch } from '../../../store/videos.action';
 import { combineLatest, count, first, forkJoin, map, merge, mergeAll, of, reduce, switchMap, take } from 'rxjs';
@@ -69,9 +69,13 @@ export class CheckoutComponent {
         this.appStore.dispatch(
           setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success'}})
         );
-        this.router.navigate(['/'])
+        //this.router.navigate(['/'])
       }
     })
+  }
+
+  saveTransaction(transactionItem:Transaction){
+
   }
 
   purchase(){
@@ -108,11 +112,26 @@ export class CheckoutComponent {
 
         //parse the cart and record transactions
         data.cart.forEach(el => {
+
+          let cartTransactions:Transaction = {
+            user_id: 0,
+            product_id: 0,
+            order_num: order_id, //done
+            trnsx_id: crypto.randomUUID(), //done
+            video_title: '',
+            unit_price:0,
+            count:0,
+            createdAt: new Date,
+            updatedAt: new Date,
+          };
+
+          this.saveTransaction(cartTransactions);
           console.log(el.totalPrice);
         });
 
         //create transaction; then add order num to tranx
         //clear the state
+        console.log('transaction has been successfully submitted!');
 
       }else{
         alert('You have no items in your cart. Please add some before trying to checkout.');
