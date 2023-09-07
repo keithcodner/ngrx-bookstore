@@ -6,12 +6,12 @@ import { VideosService } from "../../videos.service";
 import { Appstate } from "src/app/shared/store/appstate";
 import { Store, select } from "@ngrx/store";
 import { setApiStatus } from "src/app/shared/store/app.action";
-import { invokeSaveOrderAPI, saveOrderAPISuccess } from "../order/order.action";
+import { invokeSaveTransactionAPI, saveTransactionAPISuccess } from "./transaction.action";
 
 
 // Only needs to be used when returning an api call from an action
 @Injectable()
-export class OrderEffects {
+export class TransactionEffects {
     constructor(
         private actions$:Actions,
         private videoService:VideosService,
@@ -20,17 +20,17 @@ export class OrderEffects {
     ){}
 
 
-        saveNewOrder$ = createEffect(() =>
+        saveNewTransaction$ = createEffect(() =>
             this.actions$.pipe(
-                ofType(invokeSaveOrderAPI),
+                ofType(invokeSaveTransactionAPI),
                 switchMap((action) => {
                     this.appStore.dispatch(setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: ''}}))
                     return this.videoService
-                    .saveOrder(action.payload)
+                    .saveTransaction(action.payload)
                     .pipe(
                         map((data) => {
                             this.appStore.dispatch(setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success'}}))
-                            return saveOrderAPISuccess({response: data})
+                            return saveTransactionAPISuccess({payload: data})
                         })
                     )
                 })

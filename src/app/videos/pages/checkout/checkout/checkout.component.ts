@@ -11,6 +11,7 @@ import { VideosService } from 'src/app/videos/videos.service';
 import { invokeSaveOrderAPI } from 'src/app/videos/store/order/order.action';
 import { selectAppState } from 'src/app/shared/store/app.selector';
 import { setApiStatus } from 'src/app/shared/store/app.action';
+import { invokeSaveTransactionAPI } from 'src/app/videos/store/transaction/transaction.action';
 
 @Component({
   selector: 'app-checkout',
@@ -75,7 +76,17 @@ export class CheckoutComponent {
   }
 
   saveTransaction(transactionItem:Transaction){
+    this.store.dispatch(invokeSaveTransactionAPI({payload:{...transactionItem}})); // save all videos to store
 
+    let appState$ = this.appStore.pipe(select(selectAppState));
+    appState$.subscribe((data) => {
+      if(data.apiStatus === 'success'){
+        this.appStore.dispatch(
+          setApiStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success'}})
+        );
+        //this.router.navigate(['/'])
+      }
+    })
   }
 
   purchase(){
@@ -132,6 +143,8 @@ export class CheckoutComponent {
         //create transaction; then add order num to tranx
         //clear the state
         console.log('transaction has been successfully submitted!');
+
+        //clear/reset objects: videoCart, order....clear store tho? i dont think so
 
       }else{
         alert('You have no items in your cart. Please add some before trying to checkout.');

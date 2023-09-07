@@ -7,7 +7,7 @@ export const invokeTransactionAPI  = createAction(
     "[Transaction API] invoke Transaction Fetch API"
 );
 
-export const TransactionFetchAPISuccess  = createAction(
+export const transactionFetchAPISuccess  = createAction(
     "[Transaction API] Transaction Fetch API success",
     props<{allTransactions: Transaction[]}>()
 );
@@ -20,6 +20,6 @@ export const invokeSaveTransactionAPI = createAction(
 
 export const saveTransactionAPISuccess = createAction(
     "[Transaction API] invoke save Transaction API success ",
-    props<{response: Transaction}>()
+    props<{payload: Transaction}>()
 );
 

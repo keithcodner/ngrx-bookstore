@@ -57,8 +57,8 @@ export class VideosService {
     return this.http.post<Transaction[]>(`http://localhost:3000/transactionById/`, id);
   }
 
-  saveTransaction(payload:Video){
-    return this.http.post<Video>("http://localhost:3000/transaction", payload);
+  saveTransaction(payload:Transaction){
+    return this.http.post<Transaction>("http://localhost:3000/transaction", payload);
   }
 
   //---------------------- Order Endpoints ----------------------
