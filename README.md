@@ -12,7 +12,7 @@ NgrxBookstore is a full-stack web application built with Angular for the fronten
 
 - The Angular frontend provides a user interface for browsing products, managing a cart, checking out, and viewing orders.
 - State management is handled using NgRx for predictable state updates and side effects.
-- The Express server (`server.js`) runs on Node.js and can be used to serve the frontend, provide RESTful APIs, or act as a middleware layer.
+- The Express server (`src/index.js`) runs on Node.js and can be used to serve the frontend, provide RESTful APIs, or act as a middleware layer.
 
 ## Running the Application
 
