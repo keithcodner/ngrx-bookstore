@@ -94,14 +94,19 @@ app.post('/auth', async (req, res) => {
 
     await User.findAll({ where: { username: req.body.username,  password: req.body.password}})
     .then((user) => {
-        userResponse.id = user[0].id;
-        userResponse.name = user[0].name;
-        userResponse.username = user[0].username;
-        userResponse.email = user[0].email;
-        userResponse.token = user[0].token;
-        userResponse.other = user[0].other;
-        userResponse.created_at = user[0].created_at;
-        userResponse.status = "successful_login";
+        if (user && user.length > 0 && user[0]) {
+            userResponse.id = user[0].id;
+            userResponse.name = user[0].name;
+            userResponse.username = user[0].username;
+            userResponse.email = user[0].email;
+            userResponse.token = user[0].token;
+            userResponse.other = user[0].other;
+            userResponse.created_at = user[0].created_at;
+            userResponse.status = "successful_login";
+        } else {
+            userResponse.status = "false";
+            userResponse.token = "false";
+        }
         res.send(userResponse);
     })
     .catch((err) => {
